@@ -3,7 +3,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
+    "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:css\"",
+    "dev:server": "tsx watch src/server.ts",
+    "dev:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css --watch",
     "typecheck": "tsgo",
     "fix": "echo \"No fix step configured\"",
     "test": "echo \"No tests configured\""
@@ -13,8 +15,11 @@
     "hono": "^4.11.3"
   },
   "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
     "@types/node": "^25.0.3",
     "@typescript/native-preview": "7.0.0-dev.20251230.1",
+    "concurrently": "^9.2.1",
+    "tailwindcss": "^4.1.18",
     "tsx": "^4.21.0"
   }
 }
