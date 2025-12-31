@@ -14,6 +14,9 @@ importers:
       hono:
         specifier: ^4.11.3
         version: 4.11.3
+      typengine:
+        specifier: ^0.0.2
+        version: 0.0.2
     devDependencies:
       '@tailwindcss/cli':
         specifier: ^4.1.18
@@ -679,6 +682,9 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
+  typengine@0.0.2:
+    resolution: {integrity: sha512-zjLNjnhseQxLRvK7wBHo4fZZqRr8uhmWdADjzleQtypGAY/0GyEByzwKy9dk7V+2ZnFrYRQOIcqjtzH0D9uJhg==}
+
   undici-types@7.16.0:
     resolution: {integrity: sha512-Zz+aZWSj8LE6zoxD+xrjh4VfkIG8Ya6LvYkZqtUQGJPZjYl53ypCaUwWqo7eI0x66KBGeRo+mlBEkMSeSZ38Nw==}
 
@@ -1190,6 +1196,8 @@ snapshots:
       get-tsconfig: 4.13.0
     optionalDependencies:
       fsevents: 2.3.3
+
+  typengine@0.0.2: {}
 
   undici-types@7.16.0: {}
 

@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
-    "hono": "^4.11.3"
+    "hono": "^4.11.3",
+    "typengine": "^0.0.2"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
