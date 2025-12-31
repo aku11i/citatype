@@ -1,1 +1,4 @@
-# typing-app
+# DakenMania
+
+Typing App for Keyboard fleaks.
+
