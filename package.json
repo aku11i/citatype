@@ -3,9 +3,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:css\"",
+    "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:css\" \"pnpm dev:client-components\"",
     "dev:server": "tsx watch src/server.ts",
     "dev:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css --watch",
+    "dev:client-components": "tsdown --watch",
+    "build:client-components": "tsdown",
     "typecheck": "tsgo",
     "fix": "echo \"No fix step configured\"",
     "test": "echo \"No tests configured\""
@@ -21,6 +23,7 @@
     "@typescript/native-preview": "7.0.0-dev.20251230.1",
     "concurrently": "^9.2.1",
     "tailwindcss": "^4.1.18",
+    "tsdown": "^0.14.1",
     "tsx": "^4.21.0"
   }
 }
