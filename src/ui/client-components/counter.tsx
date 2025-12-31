@@ -1,3 +1,6 @@
+/** @jsxImportSource hono/jsx/dom */
+import { render } from 'hono/jsx/dom'
+
 class DmCounter extends HTMLElement {
   private count = 0
   private button: HTMLButtonElement | null = null
@@ -10,12 +13,19 @@ class DmCounter extends HTMLElement {
 
   connectedCallback() {
     if (!this.button) {
-      this.innerHTML = `
+      render(
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div class="flex items-center justify-between gap-4">
             <div>
-              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Counter</p>
-              <p class="mt-2 text-3xl font-semibold text-slate-900" data-role="value">0</p>
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
+                Counter
+              </p>
+              <p
+                class="mt-2 text-3xl font-semibold text-slate-900"
+                data-role="value"
+              >
+                0
+              </p>
             </div>
             <button
               type="button"
@@ -25,8 +35,9 @@ class DmCounter extends HTMLElement {
               +1
             </button>
           </div>
-        </div>
-      `
+        </div>,
+        this
+      )
 
       this.button = this.querySelector('[data-role="increment"]')
       this.value = this.querySelector('[data-role="value"]')
