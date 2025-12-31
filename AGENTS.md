@@ -10,11 +10,12 @@ Typing App for Keyboard fleaks.
 - Prefer standard web tech such as form submissions
 - Client JS is implemented with Web Components
 - UI: Tailwind CSS with a simple, modern design
+- Runtime: Cloudflare Workers in production, Node.js for local development
 
 ## Directory structure
 ```
 src/
-  router.ts
+  app.ts
   handlers/
   ui/
     layouts/
