@@ -1,4 +1,3 @@
-/** @jsxImportSource hono/jsx/dom */
 import { render } from 'hono/jsx/dom'
 
 class ExampleCounter extends HTMLElement {
