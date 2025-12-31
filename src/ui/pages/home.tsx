@@ -14,13 +14,13 @@ export const HomePage: FC = () => {
 
         <section class="space-y-3">
           <h2 class="text-lg font-semibold text-slate-900">Counter Demo</h2>
-          <dm-counter></dm-counter>
+          <example-counter></example-counter>
           <p class="text-xs text-slate-500">
-            Loaded from /client-components/counter.js
+            Loaded from /client-components/example-counter.js
           </p>
         </section>
 
-        <script type="module" src="/client-components/counter.js"></script>
+        <script type="module" src="/client-components/example-counter.js"></script>
       </div>
     </BaseLayout>
   )

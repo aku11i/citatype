@@ -1,7 +1,7 @@
 /** @jsxImportSource hono/jsx/dom */
 import { render } from 'hono/jsx/dom'
 
-class DmCounter extends HTMLElement {
+class ExampleCounter extends HTMLElement {
   private count = 0
   private button: HTMLButtonElement | null = null
   private value: HTMLElement | null = null
@@ -58,8 +58,8 @@ class DmCounter extends HTMLElement {
   }
 }
 
-if (!customElements.get('dm-counter')) {
-  customElements.define('dm-counter', DmCounter)
+if (!customElements.get('example-counter')) {
+  customElements.define('example-counter', ExampleCounter)
 }
 
-export { DmCounter }
+export { ExampleCounter }
