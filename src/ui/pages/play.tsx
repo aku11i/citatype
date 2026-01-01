@@ -7,7 +7,7 @@ type PlayPageProps = {
 
 export const PlayPage: FC<PlayPageProps> = ({ startedAt }) => {
   return (
-    <BaseLayout title="Play | DakenMania">
+    <BaseLayout title="Play | Citatype">
       <div class="space-y-8">
         <header class="space-y-2">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Session</p>
