@@ -10,7 +10,7 @@
     "build:client-components": "tsdown",
     "typecheck": "tsgo",
     "fix": "echo \"No fix step configured\"",
-    "test": "echo \"No tests configured\""
+    "test": "vitest run"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
@@ -21,11 +21,18 @@
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.18",
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
     "@types/node": "^25.0.3",
     "@typescript/native-preview": "7.0.0-dev.20251230.1",
+    "@vitest/browser": "^4.0.16",
+    "@vitest/browser-playwright": "^4.0.16",
     "concurrently": "^9.2.1",
+    "happy-dom": "^20.0.11",
+    "playwright": "^1.57.0",
     "tailwindcss": "^4.1.18",
     "tsdown": "^0.14.1",
-    "tsx": "^4.21.0"
+    "tsx": "^4.21.0",
+    "vitest": "^4.0.16"
   }
 }
