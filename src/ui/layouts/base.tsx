@@ -1,8 +1,8 @@
-import type { FC, PropsWithChildren } from 'hono/jsx'
+import type { FC, PropsWithChildren } from "hono/jsx";
 
 type BaseLayoutProps = PropsWithChildren<{
-  title: string
-}>
+  title: string;
+}>;
 
 export const BaseLayout: FC<BaseLayoutProps> = ({ title, children }) => {
   return (
@@ -16,5 +16,5 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, children }) => {
         <main class="mx-auto max-w-3xl px-6 py-10">{children}</main>
       </body>
     </html>
-  )
-}
+  );
+};

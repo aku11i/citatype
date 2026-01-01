@@ -1,9 +1,9 @@
-import { playwright } from '@vitest/browser-playwright'
-import { defaultExclude, defineConfig } from 'vitest/config'
+import { playwright } from "@vitest/browser-playwright";
+import { defaultExclude, defineConfig } from "vitest/config";
 
-const nodeTests = ['**/*.test.{ts,tsx}']
-const domTests = ['**/*.dom.test.{ts,tsx}']
-const browserTests = ['**/*.browser.test.{ts,tsx}']
+const nodeTests = ["**/*.test.{ts,tsx}"];
+const domTests = ["**/*.dom.test.{ts,tsx}"];
+const browserTests = ["**/*.browser.test.{ts,tsx}"];
 
 export default defineConfig({
   test: {
@@ -12,8 +12,8 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: 'node',
-          environment: 'node',
+          name: "node",
+          environment: "node",
           include: nodeTests,
           exclude: [...defaultExclude, ...domTests, ...browserTests],
         },
@@ -21,11 +21,11 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: 'dom',
-          environment: 'happy-dom',
+          name: "dom",
+          environment: "happy-dom",
           include: domTests,
           exclude: [...defaultExclude],
-          setupFiles: ['./vitest.setup.dom.ts'],
+          setupFiles: ["./vitest.setup.dom.ts"],
           environmentOptions: {
             happyDOM: {
               disableCSSFileLoading: true,
@@ -36,28 +36,28 @@ export default defineConfig({
       {
         extends: true,
         test: {
-          name: 'browser',
+          name: "browser",
           include: browserTests,
           exclude: [...defaultExclude],
-          setupFiles: ['./vitest.setup.browser.ts'],
+          setupFiles: ["./vitest.setup.browser.ts"],
           browser: {
             enabled: true,
             headless: true,
             provider: playwright(),
             instances: [
               {
-                browser: 'chromium',
-                name: 'mobile',
+                browser: "chromium",
+                name: "mobile",
                 viewport: { width: 390, height: 844 },
               },
               {
-                browser: 'chromium',
-                name: 'tablet',
+                browser: "chromium",
+                name: "tablet",
                 viewport: { width: 834, height: 1112 },
               },
               {
-                browser: 'chromium',
-                name: 'desktop',
+                browser: "chromium",
+                name: "desktop",
                 viewport: { width: 1280, height: 800 },
               },
             ],
@@ -66,4 +66,4 @@ export default defineConfig({
       },
     ],
   },
-})
+});
