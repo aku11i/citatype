@@ -9,8 +9,11 @@
     "dev:client-components": "tsdown --watch",
     "build:client-components": "tsdown",
     "typecheck": "tsgo",
+    "lint": "echo \"No lint step configured\"",
     "fix": "echo \"No fix step configured\"",
-    "test": "vitest run"
+    "test": "vitest run",
+    "ready": "pnpm fix && pnpm typecheck && pnpm test",
+    "ready:check": "pnpm lint && pnpm typecheck && pnpm test"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
