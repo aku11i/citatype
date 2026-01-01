@@ -4,23 +4,28 @@ import { BaseLayout } from '../layouts/base.js'
 export const HomePage: FC = () => {
   return (
     <BaseLayout title="DakenMania">
-      <div class="space-y-8">
-        <header class="space-y-2">
+      <div class="space-y-10">
+        <header class="space-y-3">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+            Typing Practice
+          </p>
           <h1 class="text-3xl font-semibold tracking-tight">DakenMania</h1>
-          <p class="text-base text-slate-700">
-            Web Components are wired for client-side interactions.
+          <p class="text-base text-slate-600">
+            A simple typing session with no modes or extra settings.
           </p>
         </header>
 
-        <section class="space-y-3">
-          <h2 class="text-lg font-semibold text-slate-900">Counter Demo</h2>
-          <example-counter></example-counter>
+        <div class="space-y-3">
+          <a
+            href="/play"
+            class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+          >
+            PLAY
+          </a>
           <p class="text-xs text-slate-500">
-            Loaded from /client-components/example-counter.js
+            Press play to start immediately.
           </p>
-        </section>
-
-        <script type="module" src="/client-components/example-counter.js"></script>
+        </div>
       </div>
     </BaseLayout>
   )
