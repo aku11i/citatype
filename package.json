@@ -3,8 +3,8 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "concurrently -k \"pnpm dev:server\" \"pnpm dev:css\" \"pnpm dev:client-components\"",
-    "dev:server": "tsx watch src/server.ts",
+    "dev": "concurrently -k \"pnpm dev:worker\" \"pnpm dev:css\" \"pnpm dev:client-components\"",
+    "dev:worker": "wrangler dev --env local --port 3000",
     "dev:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css --watch",
     "dev:client-components": "tsdown --watch",
     "build": "pnpm build:css && pnpm build:client-components",
