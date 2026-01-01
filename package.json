@@ -17,7 +17,10 @@
     "fix": "oxlint . --fix && oxfmt --write .",
     "test": "vitest run",
     "ready": "pnpm fix && pnpm typecheck && pnpm test",
-    "ready:check": "pnpm lint && pnpm typecheck && pnpm test"
+    "ready:check": "pnpm lint && pnpm typecheck && pnpm test",
+    "setup:playwright": "playwright install --with-deps",
+    "setup": "pnpm setup:playwright",
+    "postinstall": "pnpm setup"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
