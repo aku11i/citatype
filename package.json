@@ -9,8 +9,8 @@
     "dev:client-components": "tsdown --watch",
     "build:client-components": "tsdown",
     "typecheck": "tsgo",
-    "lint": "echo \"No lint step configured\"",
-    "fix": "echo \"No fix step configured\"",
+    "lint": "oxlint . && oxfmt --check .",
+    "fix": "oxlint . --fix && oxfmt --write .",
     "test": "vitest run",
     "ready": "pnpm fix && pnpm typecheck && pnpm test",
     "ready:check": "pnpm lint && pnpm typecheck && pnpm test"
@@ -32,10 +32,13 @@
     "@vitest/browser-playwright": "^4.0.16",
     "concurrently": "^9.2.1",
     "happy-dom": "^20.0.11",
+    "oxfmt": "^0.20.0",
+    "oxlint": "^1.35.0",
     "playwright": "^1.57.0",
     "tailwindcss": "^4.1.18",
     "tsdown": "^0.18.3",
     "tsx": "^4.21.0",
     "vitest": "^4.0.16"
-  }
+  },
+  "packageManager": "pnpm@10.8.1"
 }

@@ -1,14 +1,14 @@
-import { render } from 'hono/jsx/dom'
+import { render } from "hono/jsx/dom";
 
 class ExampleCounter extends HTMLElement {
-  private count = 0
-  private button: HTMLButtonElement | null = null
-  private value: HTMLElement | null = null
+  private count = 0;
+  private button: HTMLButtonElement | null = null;
+  private value: HTMLElement | null = null;
 
   private handleClick = () => {
-    this.count += 1
-    this.update()
-  }
+    this.count += 1;
+    this.update();
+  };
 
   connectedCallback() {
     if (!this.button) {
@@ -16,13 +16,8 @@ class ExampleCounter extends HTMLElement {
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div class="flex items-center justify-between gap-4">
             <div>
-              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">
-                Counter
-              </p>
-              <p
-                class="mt-2 text-3xl font-semibold text-slate-900"
-                data-role="value"
-              >
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Counter</p>
+              <p class="mt-2 text-3xl font-semibold text-slate-900" data-role="value">
                 0
               </p>
             </div>
@@ -35,30 +30,30 @@ class ExampleCounter extends HTMLElement {
             </button>
           </div>
         </div>,
-        this
-      )
+        this,
+      );
 
-      this.button = this.querySelector('[data-role="increment"]')
-      this.value = this.querySelector('[data-role="value"]')
+      this.button = this.querySelector('[data-role="increment"]');
+      this.value = this.querySelector('[data-role="value"]');
     }
 
-    this.button?.addEventListener('click', this.handleClick)
-    this.update()
+    this.button?.addEventListener("click", this.handleClick);
+    this.update();
   }
 
   disconnectedCallback() {
-    this.button?.removeEventListener('click', this.handleClick)
+    this.button?.removeEventListener("click", this.handleClick);
   }
 
   private update() {
     if (this.value) {
-      this.value.textContent = String(this.count)
+      this.value.textContent = String(this.count);
     }
   }
 }
 
-if (!customElements.get('example-counter')) {
-  customElements.define('example-counter', ExampleCounter)
+if (!customElements.get("example-counter")) {
+  customElements.define("example-counter", ExampleCounter);
 }
 
-export { ExampleCounter }
+export { ExampleCounter };

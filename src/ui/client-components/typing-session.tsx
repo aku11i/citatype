@@ -1,45 +1,45 @@
-import { render } from 'hono/jsx/dom'
-import { Session, Sentence, createEnglishSentenceDefinition } from 'typengine'
+import { render } from "hono/jsx/dom";
+import { Session, Sentence, createEnglishSentenceDefinition } from "typengine";
 
 const SENTENCES = [
-  'dakenmania is a simple typing app',
-  'type three sentences to finish',
-  'stay calm and keep typing',
-]
+  "dakenmania is a simple typing app",
+  "type three sentences to finish",
+  "stay calm and keep typing",
+];
 
 class TypingSession extends HTMLElement {
-  private session: Session | null = null
-  private input: HTMLInputElement | null = null
-  private sentenceText: HTMLElement | null = null
-  private sentenceProgress: HTMLElement | null = null
-  private sentenceRemaining: HTMLElement | null = null
-  private sentenceIndex: HTMLElement | null = null
-  private status: HTMLElement | null = null
-  private finished = false
+  private session: Session | null = null;
+  private input: HTMLInputElement | null = null;
+  private sentenceText: HTMLElement | null = null;
+  private sentenceProgress: HTMLElement | null = null;
+  private sentenceRemaining: HTMLElement | null = null;
+  private sentenceIndex: HTMLElement | null = null;
+  private status: HTMLElement | null = null;
+  private finished = false;
 
   private handleKeyDown = (event: KeyboardEvent) => {
-    if (!this.session || this.session.completed) return
+    if (!this.session || this.session.completed) return;
 
-    if (event.key === 'Enter') {
-      event.preventDefault()
-      return
+    if (event.key === "Enter") {
+      event.preventDefault();
+      return;
     }
 
-    if (event.key.length !== 1) return
+    if (event.key.length !== 1) return;
 
-    event.preventDefault()
+    event.preventDefault();
 
-    const value = event.key.toLowerCase()
-    const result = this.session.input(value)
+    const value = event.key.toLowerCase();
+    const result = this.session.input(value);
     if (result.accepted) {
-      if (this.status) this.status.textContent = ''
-      this.updateView()
+      if (this.status) this.status.textContent = "";
+      this.updateView();
     } else if (this.status) {
-      this.status.textContent = 'Missed key. Keep going.'
+      this.status.textContent = "Missed key. Keep going.";
     }
 
-    if (this.session.completed) this.finishSession()
-  }
+    if (this.session.completed) this.finishSession();
+  };
 
   connectedCallback() {
     if (!this.input) {
@@ -49,10 +49,7 @@ class TypingSession extends HTMLElement {
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
               Sentence <span data-role="index">1 / 3</span>
             </p>
-            <p
-              class="mt-3 text-lg font-semibold text-slate-900"
-              data-role="sentence"
-            >
+            <p class="mt-3 text-lg font-semibold text-slate-900" data-role="sentence">
               ...
             </p>
             <p class="mt-3 text-sm font-medium">
@@ -77,96 +74,94 @@ class TypingSession extends HTMLElement {
               placeholder="Start typing..."
               data-role="input"
             />
-            <p class="text-xs text-slate-500">
-              Type exactly as shown. Backspace is not supported.
-            </p>
+            <p class="text-xs text-slate-500">Type exactly as shown. Backspace is not supported.</p>
           </div>
 
           <p class="text-xs text-slate-500" data-role="status"></p>
         </div>,
-        this
-      )
+        this,
+      );
 
-      this.input = this.querySelector('[data-role="input"]')
-      this.sentenceText = this.querySelector('[data-role="sentence"]')
-      this.sentenceProgress = this.querySelector('[data-role="typed"]')
-      this.sentenceRemaining = this.querySelector('[data-role="remaining"]')
-      this.sentenceIndex = this.querySelector('[data-role="index"]')
-      this.status = this.querySelector('[data-role="status"]')
+      this.input = this.querySelector('[data-role="input"]');
+      this.sentenceText = this.querySelector('[data-role="sentence"]');
+      this.sentenceProgress = this.querySelector('[data-role="typed"]');
+      this.sentenceRemaining = this.querySelector('[data-role="remaining"]');
+      this.sentenceIndex = this.querySelector('[data-role="index"]');
+      this.status = this.querySelector('[data-role="status"]');
     }
 
     if (!this.session) {
       const sentences = SENTENCES.map(
-        (text) => new Sentence(createEnglishSentenceDefinition(text))
-      )
+        (text) => new Sentence(createEnglishSentenceDefinition(text)),
+      );
       this.session = new Session(sentences, {
         onSessionCompleted: () => this.finishSession(),
-      })
-      this.session.start()
-      this.updateView()
+      });
+      this.session.start();
+      this.updateView();
     }
 
-    this.input?.addEventListener('keydown', this.handleKeyDown)
-    this.input?.focus()
+    this.input?.addEventListener("keydown", this.handleKeyDown);
+    this.input?.focus();
   }
 
   disconnectedCallback() {
-    this.input?.removeEventListener('keydown', this.handleKeyDown)
+    this.input?.removeEventListener("keydown", this.handleKeyDown);
   }
 
   private updateView() {
-    if (!this.session) return
+    if (!this.session) return;
 
-    const sentence = this.session.currentSentence
+    const sentence = this.session.currentSentence;
     if (!sentence) {
-      if (this.status) this.status.textContent = 'Session complete.'
-      return
+      if (this.status) this.status.textContent = "Session complete.";
+      return;
     }
 
     if (this.sentenceText) {
-      this.sentenceText.textContent = sentence.text
+      this.sentenceText.textContent = sentence.text;
     }
 
-    const typed = sentence.typed
-    const reading = sentence.reading
-    const remaining = reading.slice(typed.length)
+    const typed = sentence.typed;
+    const reading = sentence.reading;
+    const remaining = reading.slice(typed.length);
 
     if (this.sentenceProgress) {
-      this.sentenceProgress.textContent = typed
+      this.sentenceProgress.textContent = typed;
     }
 
     if (this.sentenceRemaining) {
-      this.sentenceRemaining.textContent = remaining
+      this.sentenceRemaining.textContent = remaining;
     }
 
     if (this.sentenceIndex) {
-      const total = this.session.sentences.length
-      const current = Math.min(this.session.position + 1, total)
-      this.sentenceIndex.textContent = `${current} / ${total}`
+      const total = this.session.sentences.length;
+      const current = Math.min(this.session.position + 1, total);
+      this.sentenceIndex.textContent = `${current} / ${total}`;
     }
   }
 
   private finishSession() {
-    if (this.finished) return
-    this.finished = true
+    if (this.finished) return;
+    this.finished = true;
 
     if (this.input) {
-      this.input.disabled = true
+      this.input.disabled = true;
     }
 
     if (this.status) {
-      this.status.textContent = 'Session complete. Redirecting to result...'
+      this.status.textContent = "Session complete. Redirecting to result...";
     }
 
-    const form = this.closest('form')
+    const form = this.closest("form");
     if (form) {
-      form.requestSubmit()
+      form.requestSubmit();
     }
   }
 }
 
-if (!customElements.get('typing-session')) {
-  customElements.define('typing-session', TypingSession)
+if (!customElements.get("typing-session")) {
+  customElements.define("typing-session", TypingSession);
 }
 
-export { TypingSession }
+export { TypingSession };

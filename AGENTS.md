@@ -3,6 +3,7 @@
 Typing App for Keyboard fleaks.
 
 ## Stack rules
+
 - Core typing library: Typengine (https://github.com/aku11i/typengine)
 - Framework: Hono-based full-stack web application
 - ES Modules only (latest ESM).
@@ -13,6 +14,7 @@ Typing App for Keyboard fleaks.
 - Runtime: Cloudflare Workers in production, Node.js for local development
 
 ## Directory structure
+
 ```
 src/
   app.ts
@@ -33,4 +35,5 @@ src/
 - After implementation, run `pnpm fix`, `pnpm typecheck`, and `pnpm test`.
 
 ## Language policy
+
 All source code, comments, documentation, Issues, and PRs are written in English.

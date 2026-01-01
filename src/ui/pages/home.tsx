@@ -1,5 +1,5 @@
-import type { FC } from 'hono/jsx'
-import { BaseLayout } from '../layouts/base.js'
+import type { FC } from "hono/jsx";
+import { BaseLayout } from "../layouts/base.js";
 
 export const HomePage: FC = () => {
   return (
@@ -22,11 +22,9 @@ export const HomePage: FC = () => {
           >
             PLAY
           </a>
-          <p class="text-xs text-slate-500">
-            Press play to start immediately.
-          </p>
+          <p class="text-xs text-slate-500">Press play to start immediately.</p>
         </div>
       </div>
     </BaseLayout>
-  )
-}
+  );
+};
