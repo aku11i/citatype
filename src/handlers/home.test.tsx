@@ -1,4 +1,6 @@
+import { Hono } from "hono";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { handleGetHome } from "./home.js";
 
 const { HomePageMock } = vi.hoisted(() => {
   return {
@@ -18,8 +20,8 @@ describe("GET /", () => {
   });
 
   it("returns 200 and calls HomePage with expected props", async () => {
-    const { app } = await import("../app.js");
-
+    const app = new Hono();
+    app.get("/", handleGetHome);
     const res = await app.request("/");
 
     expect(res.status).toBe(200);
