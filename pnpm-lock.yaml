@@ -14,9 +14,6 @@ importers:
       '@hono/standard-validator':
         specifier: ^0.2.1
         version: 0.2.1(@standard-schema/spec@1.0.0)(hono@4.11.3)
-      '@standard-schema/spec':
-        specifier: ^1.0.0
-        version: 1.0.0
       hono:
         specifier: ^4.11.3
         version: 4.11.3
