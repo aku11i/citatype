@@ -18,8 +18,8 @@ importers:
         specifier: ^4.11.3
         version: 4.11.3
       typengine:
-        specifier: ^0.0.2
-        version: 0.0.2
+        specifier: ^0.0.4
+        version: 0.0.4
       valibot:
         specifier: ^1.2.0
         version: 1.2.0
@@ -1297,8 +1297,8 @@ packages:
     engines: {node: '>=18.0.0'}
     hasBin: true
 
-  typengine@0.0.2:
-    resolution: {integrity: sha512-zjLNjnhseQxLRvK7wBHo4fZZqRr8uhmWdADjzleQtypGAY/0GyEByzwKy9dk7V+2ZnFrYRQOIcqjtzH0D9uJhg==}
+  typengine@0.0.4:
+    resolution: {integrity: sha512-fN0Tqh2GHp6WhFiYAQdw9uPz4AHoZWOuppAhtb1oia1hCIldVL8S4K4cvZfO9PtX8hrYuO/DrVw6H0R8vgdxCg==}
 
   unconfig-core@7.4.2:
     resolution: {integrity: sha512-VgPCvLWugINbXvMQDf8Jh0mlbvNjNC6eSUziHsBCMpxR05OPrNrvDnyatdMjRgcHaaNsCqz+wjNXxNw1kRLHUg==}
@@ -2454,7 +2454,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  typengine@0.0.2: {}
+  typengine@0.0.4: {}
 
   unconfig-core@7.4.2:
     dependencies:

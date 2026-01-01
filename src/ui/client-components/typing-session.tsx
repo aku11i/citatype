@@ -1,24 +1,11 @@
 import { render } from 'hono/jsx/dom'
-import { Session, Sentence } from 'typengine'
+import { Session, Sentence, createEnglishSentenceDefinition } from 'typengine'
 
 const SENTENCES = [
   'dakenmania is a simple typing app',
   'type three sentences to finish',
   'stay calm and keep typing',
 ]
-
-const createSimpleSentenceDefinition = (text: string) => {
-  const characters = Array.from(text).map((char) => ({
-    reading: char,
-    patterns: [char],
-  }))
-
-  return {
-    text,
-    reading: text,
-    characters,
-  }
-}
 
 class TypingSession extends HTMLElement {
   private session: Session | null = null
@@ -110,7 +97,7 @@ class TypingSession extends HTMLElement {
 
     if (!this.session) {
       const sentences = SENTENCES.map(
-        (text) => new Sentence(createSimpleSentenceDefinition(text))
+        (text) => new Sentence(createEnglishSentenceDefinition(text))
       )
       this.session = new Session(sentences, {
         onSessionCompleted: () => this.finishSession(),
