@@ -6,11 +6,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "pnpm install"
-          },
-          {
-            "type": "command",
-            "command": "pnpm bootstrap"
+            "command": "test \"$CLAUDE_CODE_REMOTE\" == \"true\" && pnpm install && pnpm exec playwright install --with-deps --only-shell"
           }
         ]
       }
