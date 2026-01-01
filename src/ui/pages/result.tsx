@@ -15,7 +15,7 @@ const formatElapsed = (elapsedMs: number | null) => {
 
 export const ResultPage: FC<ResultPageProps> = ({ elapsedMs }) => {
   return (
-    <BaseLayout title="Result | DakenMania">
+    <BaseLayout title="Result | Citatype">
       <div class="space-y-8">
         <header class="space-y-2">
           <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Result</p>

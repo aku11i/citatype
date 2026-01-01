@@ -2,7 +2,7 @@ import { render } from "hono/jsx/dom";
 import { Session, Sentence, createEnglishSentenceDefinition } from "typengine";
 
 const SENTENCES = [
-  "dakenmania is a simple typing app",
+  "citatype is a simple typing app",
   "type three sentences to finish",
   "stay calm and keep typing",
 ];
