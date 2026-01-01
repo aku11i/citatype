@@ -37,3 +37,5 @@ src/
 ## Language policy
 
 All source code, comments, documentation, Issues, and PRs are written in English.
+
+In chat sessions, AI assistants should communicate with users in the same language they use.
