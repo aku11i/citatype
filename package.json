@@ -16,10 +16,9 @@
     "lint": "oxlint . && oxfmt --check .",
     "fix": "oxlint . --fix && oxfmt --write .",
     "test": "vitest run",
-    "test:setup": "playwright install --with-deps",
+    "test:setup": "playwright install",
     "ready": "pnpm fix && pnpm typecheck && pnpm test",
-    "ready:check": "pnpm lint && pnpm typecheck && pnpm test",
-    "bootstrap": "pnpm test:setup"
+    "ready:check": "pnpm lint && pnpm typecheck && pnpm test"
   },
   "dependencies": {
     "@hono/node-server": "^1.19.7",
