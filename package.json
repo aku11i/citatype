@@ -7,7 +7,11 @@
     "dev:server": "tsx watch src/server.ts",
     "dev:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css --watch",
     "dev:client-components": "tsdown --watch",
+    "build": "pnpm build:css && pnpm build:client-components",
+    "build:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css",
     "build:client-components": "tsdown",
+    "preview": "wrangler dev",
+    "deploy": "pnpm build && wrangler deploy",
     "typecheck": "tsgo",
     "lint": "oxlint . && oxfmt --check .",
     "fix": "oxlint . --fix && oxfmt --write .",
@@ -38,7 +42,8 @@
     "tailwindcss": "^4.1.18",
     "tsdown": "^0.18.3",
     "tsx": "^4.21.0",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "wrangler": "^4.54.0"
   },
   "packageManager": "pnpm@10.8.1"
 }
