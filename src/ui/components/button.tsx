@@ -30,7 +30,7 @@ export const buttonVariants = cva(
         variant: "outline",
         color: "primary",
         class:
-          "border border-primary-300 text-primary-700 hover:border-primary-400 hover:text-primary-800 dark:border-primary-500/60 dark:text-primary-200 dark:hover:text-primary-100",
+          "border border-primary-300 text-primary-800 hover:border-primary-400 hover:text-primary-900 dark:border-primary-500/60 dark:text-primary-200 dark:hover:text-primary-100",
       },
       {
         variant: "outline",
