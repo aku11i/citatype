@@ -3,61 +3,19 @@ export type TypingSentence = {
   reading?: string;
 };
 
-export type Messages = {
-  meta: {
-    homeTitle: string;
-    playTitle: string;
-    resultTitle: string;
-  };
-  home: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    cta: string;
-    helper: string;
-  };
-  play: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    sentenceLabel: string;
-    sentencesLabel: string;
-    backLink: string;
-  };
-  result: {
-    eyebrow: string;
-    title: string;
-    description: string;
-    cardLabel: string;
-    primaryCta: string;
-    secondaryCta: string;
-    elapsed: string;
-  };
-  typingSession: {
-    packLabel: string;
-    packDescription: string;
-    sentenceLabel: string;
-    typeHereLabel: string;
-    placeholder: string;
-    helper: string;
-    statusMissed: string;
-    statusComplete: string;
-    statusRedirect: string;
-    statusUnavailable: string;
-    sentences: TypingSentence[];
-  };
-  languageSwitcher: {
-    label: string;
-    ja: string;
-    en: string;
-  };
-  exampleCounter: {
-    label: string;
-    increment: string;
-  };
-};
+type DeepWiden<T> = T extends string
+  ? string
+  : T extends number
+    ? number
+    : T extends boolean
+      ? boolean
+      : T extends readonly (infer U)[]
+        ? DeepWiden<U>[]
+        : T extends object
+          ? { [K in keyof T]: DeepWiden<T[K]> }
+          : T;
 
-export const messages: Messages = {
+export const messages = {
   meta: {
     homeTitle: "Citatype",
     playTitle: "Play | Citatype",
@@ -114,4 +72,12 @@ export const messages: Messages = {
     label: "Counter",
     increment: "+1",
   },
+} as const;
+
+type MessagesBase = DeepWiden<typeof messages>;
+
+export type Messages = Omit<MessagesBase, "typingSession"> & {
+  typingSession: Omit<MessagesBase["typingSession"], "sentences"> & {
+    sentences: ReadonlyArray<TypingSentence>;
+  };
 };
