@@ -3,17 +3,11 @@ export type TypingSentence = {
   reading?: string;
 };
 
-type DeepWiden<T> = T extends string
-  ? string
-  : T extends number
-    ? number
-    : T extends boolean
-      ? boolean
-      : T extends readonly (infer U)[]
-        ? DeepWiden<U>[]
-        : T extends object
-          ? { [K in keyof T]: DeepWiden<T[K]> }
-          : T;
+const typingSentences: TypingSentence[] = [
+  { text: "citatype is a simple typing app" },
+  { text: "type three sentences to finish" },
+  { text: "stay calm and keep typing" },
+];
 
 export const messages = {
   meta: {
@@ -57,11 +51,7 @@ export const messages = {
     statusComplete: "Session complete.",
     statusRedirect: "Session complete. Redirecting to result...",
     statusUnavailable: "No sentences available.",
-    sentences: [
-      { text: "citatype is a simple typing app" },
-      { text: "type three sentences to finish" },
-      { text: "stay calm and keep typing" },
-    ],
+    sentences: typingSentences,
   },
   languageSwitcher: {
     label: "Language",
@@ -72,12 +62,6 @@ export const messages = {
     label: "Counter",
     increment: "+1",
   },
-} as const;
-
-type MessagesBase = DeepWiden<typeof messages>;
-
-export type Messages = Omit<MessagesBase, "typingSession"> & {
-  typingSession: Omit<MessagesBase["typingSession"], "sentences"> & {
-    sentences: ReadonlyArray<TypingSentence>;
-  };
 };
+
+export type Messages = typeof messages;
