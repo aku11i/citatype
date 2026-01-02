@@ -8,7 +8,8 @@
     "jsx": "react-jsx",
     "jsxImportSource": "hono/jsx",
     "noEmit": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "types": ["@vitest/browser"]
   },
   "include": ["src", "vitest.setup.browser.ts", "vitest.setup.dom.ts"]
 }

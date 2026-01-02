@@ -17,12 +17,7 @@ export default defineConfig({
           name: "node",
           environment: "node",
           include: nodeTests,
-          exclude: [
-            ...defaultExclude,
-            ...domTests,
-            ...browserTests,
-            ...visualTests,
-          ],
+          exclude: [...defaultExclude, ...domTests, ...browserTests, ...visualTests],
         },
       },
       {
@@ -125,7 +120,7 @@ export default defineConfig({
                     attachmentsDir,
                     testFileDirectory,
                     testFileName,
-                    `${arg}-${basename(screenshotDirectory)}-${browserName}-${platform}${ext}`
+                    `${arg}-${basename(screenshotDirectory)}-${browserName}-${platform}${ext}`,
                   ),
                 resolveScreenshotPath: ({
                   arg,
@@ -142,7 +137,7 @@ export default defineConfig({
                     ".screenshots",
                     testFileDirectory,
                     testFileName,
-                    `${arg}-${basename(screenshotDirectory)}-${browserName}-${platform}${ext}`
+                    `${arg}-${basename(screenshotDirectory)}-${browserName}-${platform}${ext}`,
                   ),
               },
             },
