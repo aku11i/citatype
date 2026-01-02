@@ -6,45 +6,6 @@ const nodeTests = ["**/*.test.{ts,tsx}"];
 const domTests = ["**/*.dom.test.{ts,tsx}"];
 const browserTests = ["**/*.browser.test.{ts,tsx}"];
 const visualTests = ["**/*.visual.test.{ts,tsx}"];
-const browserInstances = [
-  {
-    browser: "chromium",
-    name: "mobile",
-    viewport: { width: 390, height: 844 },
-  },
-  {
-    browser: "chromium",
-    name: "tablet",
-    viewport: { width: 834, height: 1112 },
-  },
-  {
-    browser: "chromium",
-    name: "desktop",
-    viewport: { width: 1280, height: 800 },
-  },
-];
-
-const visualBrowserInstances = [
-  {
-    browser: "chromium",
-    name: "visual-mobile",
-    viewport: { width: 390, height: 844 },
-    screenshotDirectory: ".screenshots/mobile",
-  },
-  {
-    browser: "chromium",
-    name: "visual-tablet",
-    viewport: { width: 834, height: 1112 },
-    screenshotDirectory: ".screenshots/tablet",
-  },
-  {
-    browser: "chromium",
-    name: "visual-desktop",
-    viewport: { width: 1280, height: 800 },
-    screenshotDirectory: ".screenshots/desktop",
-  },
-];
-
 export default defineConfig({
   publicDir: "public",
   test: {
@@ -90,7 +51,23 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright(),
-            instances: browserInstances,
+            instances: [
+              {
+                browser: "chromium",
+                name: "mobile",
+                viewport: { width: 390, height: 844 },
+              },
+              {
+                browser: "chromium",
+                name: "tablet",
+                viewport: { width: 834, height: 1112 },
+              },
+              {
+                browser: "chromium",
+                name: "desktop",
+                viewport: { width: 1280, height: 800 },
+              },
+            ],
           },
         },
       },
@@ -105,7 +82,26 @@ export default defineConfig({
             enabled: true,
             headless: true,
             provider: playwright(),
-            instances: visualBrowserInstances,
+            instances: [
+              {
+                browser: "chromium",
+                name: "visual-mobile",
+                viewport: { width: 390, height: 844 },
+                screenshotDirectory: ".screenshots/mobile",
+              },
+              {
+                browser: "chromium",
+                name: "visual-tablet",
+                viewport: { width: 834, height: 1112 },
+                screenshotDirectory: ".screenshots/tablet",
+              },
+              {
+                browser: "chromium",
+                name: "visual-desktop",
+                viewport: { width: 1280, height: 800 },
+                screenshotDirectory: ".screenshots/desktop",
+              },
+            ],
             expect: {
               toMatchScreenshot: {
                 comparatorName: "pixelmatch",
