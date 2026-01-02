@@ -14,9 +14,29 @@ type PlayPageProps = {
   pack: SentencePack;
 };
 
+const serializeData = (value: unknown) => {
+  return JSON.stringify(value).replace(/</g, "\\u003c");
+};
+
 export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }) => {
   const sentenceCount = pack.sentences.length;
   const sentenceLabel = sentenceCount === 1 ? t("play.sentenceLabel") : t("play.sentencesLabel");
+
+  const typingSessionData = {
+    pack,
+    copy: {
+      sentenceLabel: t("typingSession.sentenceLabel"),
+      typeHereLabel: t("typingSession.typeHereLabel"),
+      placeholder: t("typingSession.placeholder"),
+      helper: t("typingSession.helper"),
+      statusMissed: t("typingSession.statusMissed"),
+      statusComplete: t("typingSession.statusComplete"),
+      statusRedirect: t("typingSession.statusRedirect"),
+      statusUnavailable: t("typingSession.statusUnavailable"),
+    },
+  };
+
+  const typingSessionPayload = serializeData(typingSessionData);
 
   return (
     <BaseLayout title={t("meta.playTitle")} locale={locale} meta={meta} t={t} scene="typing">
@@ -35,18 +55,15 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
 
         <form method="post" action={localizedPath(locale, "/result")} class="space-y-6">
           <input type="hidden" name="startedAt" value={String(startedAt)} />
-          <typing-session
-            sentence-pack={JSON.stringify(pack)}
-            data-label-sentence={t("typingSession.sentenceLabel")}
-            data-label-type-here={t("typingSession.typeHereLabel")}
-            data-placeholder={t("typingSession.placeholder")}
-            data-helper={t("typingSession.helper")}
-            data-status-missed={t("typingSession.statusMissed")}
-            data-status-complete={t("typingSession.statusComplete")}
-            data-status-redirect={t("typingSession.statusRedirect")}
-            data-status-unavailable={t("typingSession.statusUnavailable")}
-          ></typing-session>
+          <typing-session id="typing-session"></typing-session>
         </form>
+
+        <script
+          type="module"
+          dangerouslySetInnerHTML={{
+            __html: `const el = document.getElementById("typing-session");\nif (el) {\n  el.data = ${typingSessionPayload};\n}`,
+          }}
+        ></script>
 
         <a
           href={localizedPath(locale, "/")}

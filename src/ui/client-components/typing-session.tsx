@@ -5,6 +5,7 @@ import {
   createEnglishSentenceDefinition,
   createJapaneseSentenceDefinition,
 } from "typengine";
+import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 
 type SentencePayload = {
@@ -21,6 +22,11 @@ type TypingSessionCopy = {
   statusComplete: string;
   statusRedirect: string;
   statusUnavailable: string;
+};
+
+type TypingSessionData = {
+  pack: SentencePack;
+  copy: TypingSessionCopy;
 };
 
 const DEFAULT_SENTENCES: SentencePayload[] = [
@@ -84,6 +90,28 @@ class TypingSession extends HTMLElement {
   private status: HTMLElement | null = null;
   private finished = false;
   private copy: TypingSessionCopy = DEFAULT_COPY;
+  private dataState: TypingSessionData | null = null;
+
+  constructor() {
+    super();
+
+    const preUpgrade = (this as unknown as { data?: TypingSessionData }).data;
+    if (preUpgrade) {
+      delete (this as unknown as { data?: TypingSessionData }).data;
+      this.dataState = preUpgrade;
+    }
+  }
+
+  get data() {
+    return this.dataState;
+  }
+
+  set data(value: TypingSessionData | null) {
+    this.dataState = value;
+    if (this.isConnected && !this.session) {
+      this.initialize();
+    }
+  }
 
   private handleKeyDown = (event: KeyboardEvent) => {
     if (!this.session || this.session.completed) return;
@@ -110,17 +138,18 @@ class TypingSession extends HTMLElement {
   };
 
   connectedCallback() {
-    this.copy = {
-      sentenceLabel: this.getAttribute("data-label-sentence") ?? DEFAULT_COPY.sentenceLabel,
-      typeHereLabel: this.getAttribute("data-label-type-here") ?? DEFAULT_COPY.typeHereLabel,
-      placeholder: this.getAttribute("data-placeholder") ?? DEFAULT_COPY.placeholder,
-      helper: this.getAttribute("data-helper") ?? DEFAULT_COPY.helper,
-      statusMissed: this.getAttribute("data-status-missed") ?? DEFAULT_COPY.statusMissed,
-      statusComplete: this.getAttribute("data-status-complete") ?? DEFAULT_COPY.statusComplete,
-      statusRedirect: this.getAttribute("data-status-redirect") ?? DEFAULT_COPY.statusRedirect,
-      statusUnavailable:
-        this.getAttribute("data-status-unavailable") ?? DEFAULT_COPY.statusUnavailable,
-    };
+    this.initialize();
+    this.input?.addEventListener("keydown", this.handleKeyDown);
+    this.input?.focus();
+  }
+
+  disconnectedCallback() {
+    this.input?.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  private initialize() {
+    const data = this.dataState;
+    this.copy = data?.copy ?? DEFAULT_COPY;
 
     if (!this.input) {
       render(
@@ -171,7 +200,7 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const pack = parseSentencePackAttribute(this.getAttribute("sentence-pack"));
+      const pack = data?.pack ?? parseSentencePackAttribute(this.getAttribute("sentence-pack"));
 
       const sentenceInstances = (() => {
         if (pack) {
@@ -207,13 +236,6 @@ class TypingSession extends HTMLElement {
       this.session.start();
       this.updateView();
     }
-
-    this.input?.addEventListener("keydown", this.handleKeyDown);
-    this.input?.focus();
-  }
-
-  disconnectedCallback() {
-    this.input?.removeEventListener("keydown", this.handleKeyDown);
   }
 
   private updateView() {
