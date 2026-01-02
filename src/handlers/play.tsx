@@ -23,8 +23,7 @@ export const validateGetPlayQuery = sValidator("query", playQuerySchema);
 export const handleGetPlay = (c: Context<Env, "/play", PlayQueryInput>) => {
   const startedAt = Date.now();
   const { count = 3 } = c.req.valid("query");
-  const sentenceCount = count;
-  const sentences = pickRandomSentences(dailyConversationJa.sentences, sentenceCount);
+  const sentences = pickRandomSentences(dailyConversationJa.sentences, count);
   const pack = { ...dailyConversationJa, sentences };
 
   return c.html(<PlayPage startedAt={startedAt} pack={pack} />);
