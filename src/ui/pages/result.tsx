@@ -18,26 +18,26 @@ export const ResultPage: FC<ResultPageProps> = ({ elapsedMs }) => {
     <BaseLayout title="Result | Citatype">
       <div class="space-y-8">
         <header class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Result</p>
-          <h1 class="text-2xl font-semibold tracking-tight">Session Time</h1>
-          <p class="text-sm text-slate-600">Time measured for this session.</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">Result</p>
+          <h1 class="text-2xl font-semibold tracking-tight text-secondary-900">Session Time</h1>
+          <p class="text-sm text-secondary-600">Time measured for this session.</p>
         </header>
 
-        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Time</p>
-          <p class="mt-3 text-4xl font-semibold text-slate-900">{formatElapsed(elapsedMs)}</p>
+        <section class="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">Time</p>
+          <p class="mt-3 text-4xl font-semibold text-secondary-900">{formatElapsed(elapsedMs)}</p>
         </section>
 
         <div class="flex flex-wrap gap-3">
           <a
             href="/play"
-            class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
+            class="inline-flex items-center justify-center rounded-xl bg-primary-500 px-6 py-3 text-sm font-semibold text-secondary-900 shadow-sm transition hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200"
           >
             Play again
           </a>
           <a
             href="/"
-            class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
+            class="inline-flex items-center justify-center rounded-xl border border-secondary-200 px-6 py-3 text-sm font-semibold text-secondary-700 transition hover:border-secondary-300 hover:text-secondary-900"
           >
             Home
           </a>

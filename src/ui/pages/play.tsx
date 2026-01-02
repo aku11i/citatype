@@ -7,12 +7,16 @@ type PlayPageProps = {
 
 export const PlayPage: FC<PlayPageProps> = ({ startedAt }) => {
   return (
-    <BaseLayout title="Play | Citatype">
+    <BaseLayout title="Play | Citatype" scene="typing">
       <div class="space-y-8">
         <header class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Session</p>
-          <h1 class="text-2xl font-semibold tracking-tight">Play</h1>
-          <p class="text-sm text-slate-600">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400 dark:text-secondary-300">
+            Session
+          </p>
+          <h1 class="text-2xl font-semibold tracking-tight text-secondary-900 dark:text-secondary-100">
+            Play
+          </h1>
+          <p class="text-sm text-secondary-600 dark:text-secondary-300">
             Type three sentences in order. When you finish, the result page will open automatically.
           </p>
         </header>
@@ -22,7 +26,10 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt }) => {
           <typing-session></typing-session>
         </form>
 
-        <a href="/" class="text-sm font-medium text-slate-500 hover:text-slate-700">
+        <a
+          href="/"
+          class="text-sm font-medium text-secondary-500 hover:text-secondary-700 dark:text-secondary-300 dark:hover:text-secondary-100"
+        >
           Back to home
         </a>
 
