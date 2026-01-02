@@ -1,4 +1,3 @@
-import { raw } from "hono/html";
 import type { FC } from "hono/jsx";
 import type { Translate } from "../../i18n/createI18n.js";
 import type { Locale } from "../../i18n/locales.js";
@@ -6,6 +5,7 @@ import type { PageMeta } from "../../i18n/page-meta.js";
 import { localizedPath } from "../../i18n/paths.js";
 import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { BaseLayout } from "../layouts/base.js";
+import { WebComponentData } from "../components/web-component-data.js";
 
 type PlayPageProps = {
   startedAt: number;
@@ -32,12 +32,6 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
       statusUnavailable: t("typingSession.statusUnavailable"),
     },
   };
-  const typingSessionJson = JSON.stringify(typingSessionData).replace(/</g, "\\u003c");
-  const typingSessionScript = `const data = JSON.parse(document.getElementById("typing-session-data")?.textContent ?? "{}");
-const el = document.getElementById("typing-session");
-if (el) {
-  el.data = data;
-}`;
 
   return (
     <BaseLayout title={t("meta.playTitle")} locale={locale} meta={meta} t={t} scene="typing">
@@ -59,10 +53,7 @@ if (el) {
           <typing-session id="typing-session"></typing-session>
         </form>
 
-        <script type="application/json" id="typing-session-data">
-          {raw(typingSessionJson)}
-        </script>
-        <script type="module">{raw(typingSessionScript)}</script>
+        <WebComponentData targetId="typing-session" data={typingSessionData} />
 
         <a
           href={localizedPath(locale, "/")}
