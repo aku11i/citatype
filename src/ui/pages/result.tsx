@@ -1,4 +1,5 @@
 import type { FC } from "hono/jsx";
+import { Button } from "../components/button.js";
 import { BaseLayout } from "../layouts/base.js";
 
 type ResultPageProps = {
@@ -29,18 +30,16 @@ export const ResultPage: FC<ResultPageProps> = ({ elapsedMs }) => {
         </section>
 
         <div class="flex flex-wrap gap-3">
-          <a
-            href="/play"
-            class="inline-flex items-center justify-center rounded-xl bg-primary-500 px-6 py-3 text-sm font-semibold text-secondary-900 shadow-sm transition hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200"
-          >
-            Play again
-          </a>
-          <a
-            href="/"
-            class="inline-flex items-center justify-center rounded-xl border border-secondary-200 px-6 py-3 text-sm font-semibold text-secondary-700 transition hover:border-secondary-300 hover:text-secondary-900"
-          >
-            Home
-          </a>
+          <form method="get" action="/play">
+            <Button type="submit" class="px-6">
+              Play again
+            </Button>
+          </form>
+          <form method="get" action="/">
+            <Button type="submit" variant="outline" color="secondary" class="px-6">
+              Home
+            </Button>
+          </form>
         </div>
       </div>
     </BaseLayout>

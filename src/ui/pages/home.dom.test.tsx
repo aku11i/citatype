@@ -24,10 +24,11 @@ describe("HomePage", () => {
     render(<HomePage />, document.body);
 
     const heading = getByRole(document.body, "heading", { name: "Citatype" });
-    const link = getByRole(document.body, "link", { name: "PLAY" });
+    const link = getByRole(document.body, "button", { name: "PLAY" });
 
     expect(heading).toBeInTheDocument();
     expect(link).toBeInTheDocument();
-    expect(link.getAttribute("href")).toBe("/play");
+    const form = link.closest("form");
+    expect(form?.getAttribute("action")).toBe("/play");
   });
 });

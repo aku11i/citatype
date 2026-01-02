@@ -1,4 +1,5 @@
 import type { FC } from "hono/jsx";
+import { Button } from "../components/button.js";
 import { BaseLayout } from "../layouts/base.js";
 
 export const HomePage: FC = () => {
@@ -16,12 +17,11 @@ export const HomePage: FC = () => {
         </header>
 
         <div class="space-y-3">
-          <a
-            href="/play"
-            class="inline-flex items-center justify-center rounded-xl bg-primary-500 px-6 py-3 text-sm font-semibold text-secondary-900 shadow-sm transition hover:bg-primary-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200"
-          >
-            PLAY
-          </a>
+          <form method="get" action="/play">
+            <Button type="submit" class="px-6">
+              PLAY
+            </Button>
+          </form>
           <p class="text-xs text-secondary-500">Press play to start immediately.</p>
         </div>
       </div>
