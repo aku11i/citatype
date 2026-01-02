@@ -5,7 +5,22 @@ import {
   createEnglishSentenceDefinition,
   createJapaneseSentenceDefinition,
 } from "typengine";
-import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
+import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
+
+export type TypingSessionMessages = {
+  sentenceLabel: string;
+  typeHereLabel: string;
+  placeholder: string;
+  helper: string;
+  statusMissed: string;
+  statusComplete: string;
+  statusRedirect: string;
+};
+
+export type TypingSessionData = {
+  pack: SentencePack;
+  messages: TypingSessionMessages;
+};
 
 class TypingSession extends HTMLElement {
   private session: Session | null = null;
@@ -16,6 +31,35 @@ class TypingSession extends HTMLElement {
   private sentenceIndex: HTMLElement | null = null;
   private status: HTMLElement | null = null;
   private finished = false;
+  private dataState: TypingSessionData | null = null;
+
+  constructor() {
+    super();
+
+    const preUpgrade = (this as unknown as { data?: TypingSessionData }).data;
+    if (preUpgrade) {
+      delete (this as unknown as { data?: TypingSessionData }).data;
+      this.dataState = preUpgrade;
+    }
+  }
+
+  get data() {
+    return this.dataState;
+  }
+
+  private get messages(): TypingSessionMessages {
+    if (!this.dataState) {
+      throw new Error("TypingSession: data is required");
+    }
+    return this.dataState.messages;
+  }
+
+  set data(value: TypingSessionData | null) {
+    this.dataState = value;
+    if (this.isConnected && !this.session) {
+      this.initialize();
+    }
+  }
 
   private handleKeyDown = (event: KeyboardEvent) => {
     if (!this.session || this.session.completed) return;
@@ -35,38 +79,47 @@ class TypingSession extends HTMLElement {
       if (this.status) this.status.textContent = "";
       this.updateView();
     } else if (this.status) {
-      this.status.textContent = "Missed key. Keep going.";
+      this.status.textContent = this.messages.statusMissed;
     }
 
     if (this.session.completed) this.finishSession();
   };
 
   connectedCallback() {
+    this.initialize();
+    this.input?.addEventListener("keydown", this.handleKeyDown);
+    this.input?.focus();
+  }
+
+  disconnectedCallback() {
+    this.input?.removeEventListener("keydown", this.handleKeyDown);
+  }
+
+  private initialize() {
+    const data = this.dataState;
+    if (!data) {
+      throw new Error("TypingSession: data is required");
+    }
+
     if (!this.input) {
       render(
         <div class="space-y-5">
-          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md dark:border-secondary-700/60 dark:bg-secondary-800/70">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400 dark:text-secondary-300">
-              Sentence <span data-role="index">1 / --</span>
+          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+              {this.messages.sentenceLabel} <span data-role="index">1 / --</span>
             </p>
-            <p
-              class="mt-3 text-lg font-semibold text-secondary-900 dark:text-secondary-100"
-              data-role="sentence"
-            >
+            <p class="mt-3 text-lg font-semibold text-secondary-900" data-role="sentence">
               ...
             </p>
             <p class="mt-3 text-sm font-medium">
-              <span class="text-secondary-900 dark:text-secondary-100" data-role="typed"></span>
-              <span class="text-secondary-400 dark:text-secondary-400" data-role="remaining"></span>
+              <span class="text-secondary-900" data-role="typed"></span>
+              <span class="text-secondary-400" data-role="remaining"></span>
             </p>
           </div>
 
           <div class="space-y-2">
-            <label
-              class="text-sm font-medium text-secondary-700 dark:text-secondary-300"
-              for="typing-input"
-            >
-              Type here
+            <label class="text-sm font-medium text-secondary-700" for="typing-input">
+              {this.messages.typeHereLabel}
             </label>
             <input
               id="typing-input"
@@ -76,16 +129,14 @@ class TypingSession extends HTMLElement {
               autocapitalize="off"
               autocorrect="off"
               spellcheck={false}
-              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30 dark:border-secondary-700/60 dark:bg-secondary-900/60 dark:text-secondary-100 dark:placeholder:text-secondary-500 dark:focus:border-primary-400 dark:focus:ring-primary-500/40"
-              placeholder="Start typing..."
+              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30"
+              placeholder={this.messages.placeholder}
               data-role="input"
             />
-            <p class="text-xs text-secondary-500">
-              Type exactly as shown. Backspace is not supported.
-            </p>
+            <p class="text-xs text-secondary-500">{this.messages.helper}</p>
           </div>
 
-          <p class="text-xs text-secondary-500 dark:text-secondary-400" data-role="status"></p>
+          <p class="text-xs text-secondary-500" data-role="status"></p>
         </div>,
         this,
       );
@@ -99,54 +150,27 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const rawPack = this.getAttribute("sentence-pack");
-      if (!rawPack) {
-        if (this.status) this.status.textContent = "No sentences available.";
-        return;
-      }
+      const pack = data.pack;
 
-      let pack: ReturnType<typeof parseSentencePack>;
-      try {
-        pack = parseSentencePack(JSON.parse(rawPack));
-      } catch {
-        if (this.status) this.status.textContent = "No sentences available.";
-        return;
-      }
-
-      const { language } = pack;
-      const sentences = (() => {
-        switch (language) {
-          case "ja":
-            return pack.sentences.map(
+      const sentenceInstances =
+        pack.language === "ja"
+          ? pack.sentences.map(
               (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
-            );
-          case "en":
-            return pack.sentences.map(
+            )
+          : pack.sentences.map(
               (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
             );
-          default:
-            throw new Error(`Unexpected language: ${language satisfies never}`);
-        }
-      })();
 
-      if (sentences.length === 0) {
-        if (this.status) this.status.textContent = "No sentences available.";
-        return;
+      if (sentenceInstances.length === 0) {
+        throw new Error("TypingSession: sentences are required");
       }
 
-      this.session = new Session(sentences, {
+      this.session = new Session(sentenceInstances, {
         onSessionCompleted: () => this.finishSession(),
       });
       this.session.start();
       this.updateView();
     }
-
-    this.input?.addEventListener("keydown", this.handleKeyDown);
-    this.input?.focus();
-  }
-
-  disconnectedCallback() {
-    this.input?.removeEventListener("keydown", this.handleKeyDown);
   }
 
   private updateView() {
@@ -154,7 +178,7 @@ class TypingSession extends HTMLElement {
 
     const sentence = this.session.currentSentence;
     if (!sentence) {
-      if (this.status) this.status.textContent = "Session complete.";
+      if (this.status) this.status.textContent = this.messages.statusComplete;
       return;
     }
 
@@ -190,7 +214,7 @@ class TypingSession extends HTMLElement {
     }
 
     if (this.status) {
-      this.status.textContent = "Session complete. Redirecting to result...";
+      this.status.textContent = this.messages.statusRedirect;
     }
 
     const form = this.closest("form");

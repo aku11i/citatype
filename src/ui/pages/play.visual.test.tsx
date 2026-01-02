@@ -1,22 +1,30 @@
 import { renderToString } from "hono/jsx/dom/server";
 import { describe, expect, it } from "vitest";
+import { dailyConversationEn } from "../../data/sentence-packs/index.js";
+import { createI18n } from "../../i18n/createI18n.js";
+import { getMessages } from "../../i18n/getMessages.js";
+import { createPageMeta } from "../../i18n/page-meta.js";
 import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { PlayPage } from "./play.js";
 
 describe("PlayPage visual", () => {
   it("matches the default layout", async () => {
+    const messages = getMessages("en");
+    const { t } = createI18n({ locale: "en", messages });
+    const meta = createPageMeta({
+      locale: "en",
+      path: "/play",
+      requestUrl: "https://example.com/en/play",
+    });
+
     const pack: SentencePack = {
-      id: "test-pack",
-      label: "Test Pack",
-      language: "en",
-      sentences: [
-        { id: "test-001", text: "This is a sample sentence." },
-        { id: "test-002", text: "Typing sessions should feel calm." },
-        { id: "test-003", text: "Keep going and stay focused." },
-      ],
+      ...dailyConversationEn,
+      sentences: dailyConversationEn.sentences.slice(0, 3),
     };
 
-    const markup = renderToString(<PlayPage startedAt={1} pack={pack} />);
+    const markup = renderToString(
+      <PlayPage startedAt={1} locale="en" t={t} meta={meta} pack={pack} />,
+    );
     const parsed = new DOMParser().parseFromString(markup, "text/html");
 
     document.documentElement.innerHTML = parsed.documentElement.innerHTML;
