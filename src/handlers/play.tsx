@@ -5,10 +5,8 @@ import { dailyConversationJa } from "../data/sentence-packs/index.js";
 import { pickRandomSentences } from "../domain/sentences/pick-random-sentences.js";
 import { PlayPage } from "../ui/pages/play.js";
 
-const numberFromString = v.pipe(v.string(), v.toNumber());
-
 const playQuerySchema = v.object({
-  count: v.optional(numberFromString),
+  count: v.optional(v.pipe(v.string(), v.toNumber())),
 });
 
 type PlayQueryInput = {
