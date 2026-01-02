@@ -33,6 +33,11 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
     },
   };
   const typingSessionJson = JSON.stringify(typingSessionData).replace(/</g, "\\u003c");
+  const typingSessionScript = `const data = JSON.parse(document.getElementById("typing-session-data")?.textContent ?? "{}");
+const el = document.getElementById("typing-session");
+if (el) {
+  el.data = data;
+}`;
 
   return (
     <BaseLayout title={t("meta.playTitle")} locale={locale} meta={meta} t={t} scene="typing">
@@ -57,13 +62,7 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
         <script type="application/json" id="typing-session-data">
           {raw(typingSessionJson)}
         </script>
-        <script type="module">
-          {`const data = JSON.parse(document.getElementById("typing-session-data")?.textContent ?? "{}");
-const el = document.getElementById("typing-session");
-if (el) {
-  el.data = data;
-}`}
-        </script>
+        <script type="module">{raw(typingSessionScript)}</script>
 
         <a
           href={localizedPath(locale, "/")}
