@@ -1,1 +1,80 @@
 @import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans:
+    "SF Pro Text", "SF Pro Display", -apple-system, BlinkMacSystemFont, "Segoe UI Variable",
+    "Segoe UI", "Roboto", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
+
+  --color-primary-50: #f0fbfa;
+  --color-primary-100: #dcf6f3;
+  --color-primary-200: #b9ebe6;
+  --color-primary-300: #95dfd8;
+  --color-primary-400: #8adcd5;
+  --color-primary-500: #81d8d0;
+  --color-primary-600: #5dbab3;
+  --color-primary-700: #3f8f8a;
+  --color-primary-800: #2f6d6a;
+  --color-primary-900: #245251;
+
+  --color-secondary-50: #f8fafc;
+  --color-secondary-100: #f1f5f9;
+  --color-secondary-200: #e2e8f0;
+  --color-secondary-300: #cbd5e1;
+  --color-secondary-400: #94a3b8;
+  --color-secondary-500: #64748b;
+  --color-secondary-600: #475569;
+  --color-secondary-700: #334155;
+  --color-secondary-800: #1e293b;
+  --color-secondary-900: #0f172a;
+}
+
+@layer base {
+  :root {
+    --surface-default: var(--color-secondary-50);
+    --surface-elevated: #ffffff;
+    --surface-typing: var(--color-secondary-200);
+    --text-default: var(--color-secondary-900);
+    --text-muted: var(--color-secondary-600);
+  }
+
+  body {
+    min-height: 100%;
+    font-family: var(--font-sans);
+    background-color: var(--surface-default);
+    color: var(--text-default);
+  }
+
+  body[data-scene="typing"] {
+    position: relative;
+    isolation: isolate;
+    background-color: var(--surface-typing);
+    overflow-x: hidden;
+    color-scheme: dark;
+    --surface-typing: #2c4655;
+  }
+
+  body[data-scene="typing"]::before {
+    content: "";
+    position: fixed;
+    inset: -6%;
+    background:
+      radial-gradient(980px 760px at 12% 8%, rgba(70, 176, 226, 0.98), transparent 60%),
+      radial-gradient(820px 700px at 88% 12%, rgba(54, 152, 214, 0.9), transparent 62%),
+      radial-gradient(980px 860px at 50% 92%, rgba(46, 140, 202, 0.82), transparent 70%);
+    filter: blur(30px);
+    opacity: 1;
+    z-index: -1;
+    pointer-events: none;
+  }
+
+  body[data-scene="typing"]::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(14, 24, 34, 0.08), rgba(14, 24, 34, 0.18));
+    z-index: -1;
+    pointer-events: none;
+  }
+}

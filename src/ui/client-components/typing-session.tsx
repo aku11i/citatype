@@ -45,21 +45,27 @@ class TypingSession extends HTMLElement {
     if (!this.input) {
       render(
         <div class="space-y-5">
-          <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">
+          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md dark:border-secondary-700/60 dark:bg-secondary-800/70">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400 dark:text-secondary-300">
               Sentence <span data-role="index">1 / 3</span>
             </p>
-            <p class="mt-3 text-lg font-semibold text-slate-900" data-role="sentence">
+            <p
+              class="mt-3 text-lg font-semibold text-secondary-900 dark:text-secondary-100"
+              data-role="sentence"
+            >
               ...
             </p>
             <p class="mt-3 text-sm font-medium">
-              <span class="text-slate-900" data-role="typed"></span>
-              <span class="text-slate-400" data-role="remaining"></span>
+              <span class="text-secondary-900 dark:text-secondary-100" data-role="typed"></span>
+              <span class="text-secondary-400 dark:text-secondary-400" data-role="remaining"></span>
             </p>
           </div>
 
           <div class="space-y-2">
-            <label class="text-sm font-medium text-slate-700" for="typing-input">
+            <label
+              class="text-sm font-medium text-secondary-700 dark:text-secondary-300"
+              for="typing-input"
+            >
               Type here
             </label>
             <input
@@ -70,14 +76,16 @@ class TypingSession extends HTMLElement {
               autocapitalize="off"
               autocorrect="off"
               spellcheck={false}
-              class="w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm outline-none transition focus:border-slate-400 focus:ring-2 focus:ring-slate-200"
+              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30 dark:border-secondary-700/60 dark:bg-secondary-900/60 dark:text-secondary-100 dark:placeholder:text-secondary-500 dark:focus:border-primary-400 dark:focus:ring-primary-500/40"
               placeholder="Start typing..."
               data-role="input"
             />
-            <p class="text-xs text-slate-500">Type exactly as shown. Backspace is not supported.</p>
+            <p class="text-xs text-secondary-500">
+              Type exactly as shown. Backspace is not supported.
+            </p>
           </div>
 
-          <p class="text-xs text-slate-500" data-role="status"></p>
+          <p class="text-xs text-secondary-500 dark:text-secondary-400" data-role="status"></p>
         </div>,
         this,
       );

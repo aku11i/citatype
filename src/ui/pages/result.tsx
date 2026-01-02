@@ -1,4 +1,5 @@
 import type { FC } from "hono/jsx";
+import { Button } from "../components/button.js";
 import { BaseLayout } from "../layouts/base.js";
 
 type ResultPageProps = {
@@ -18,29 +19,23 @@ export const ResultPage: FC<ResultPageProps> = ({ elapsedMs }) => {
     <BaseLayout title="Result | Citatype">
       <div class="space-y-8">
         <header class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Result</p>
-          <h1 class="text-2xl font-semibold tracking-tight">Session Time</h1>
-          <p class="text-sm text-slate-600">Time measured for this session.</p>
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">Result</p>
+          <h1 class="text-2xl font-semibold tracking-tight text-secondary-900">Session Time</h1>
+          <p class="text-sm text-secondary-600">Time measured for this session.</p>
         </header>
 
-        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-slate-400">Time</p>
-          <p class="mt-3 text-4xl font-semibold text-slate-900">{formatElapsed(elapsedMs)}</p>
+        <section class="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm">
+          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">Time</p>
+          <p class="mt-3 text-4xl font-semibold text-secondary-900">{formatElapsed(elapsedMs)}</p>
         </section>
 
         <div class="flex flex-wrap gap-3">
-          <a
-            href="/play"
-            class="inline-flex items-center justify-center rounded-xl bg-slate-900 px-6 py-3 text-sm font-semibold text-white transition hover:bg-slate-800"
-          >
+          <Button as="a" href="/play" class="px-6">
             Play again
-          </a>
-          <a
-            href="/"
-            class="inline-flex items-center justify-center rounded-xl border border-slate-200 px-6 py-3 text-sm font-semibold text-slate-700 transition hover:border-slate-300 hover:text-slate-900"
-          >
+          </Button>
+          <Button as="a" href="/" variant="outline" color="secondary" class="px-6">
             Home
-          </a>
+          </Button>
         </div>
       </div>
     </BaseLayout>

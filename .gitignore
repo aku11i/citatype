@@ -3,3 +3,4 @@ node_modules/
 .vitest-attachments/
 public/tailwind.css
 public/client-components/
+.wrangler/
