@@ -58,10 +58,6 @@ export const messages = {
     ja: "日本語",
     en: "English",
   },
-  exampleCounter: {
-    label: "Counter",
-    increment: "+1",
-  },
 };
 
 export type Messages = typeof messages;

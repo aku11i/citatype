@@ -52,8 +52,4 @@ export const messages: Messages = {
     ja: "日本語",
     en: "English",
   },
-  exampleCounter: {
-    label: "カウンター",
-    increment: "+1",
-  },
 };
