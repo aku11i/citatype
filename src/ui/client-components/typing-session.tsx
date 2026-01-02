@@ -1,11 +1,11 @@
 import { render } from "hono/jsx/dom";
-import { Session, Sentence, createEnglishSentenceDefinition } from "typengine";
-
-const SENTENCES = [
-  "citatype is a simple typing app",
-  "type three sentences to finish",
-  "stay calm and keep typing",
-];
+import {
+  Session,
+  Sentence,
+  createEnglishSentenceDefinition,
+  createJapaneseSentenceDefinition,
+} from "typengine";
+import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 
 class TypingSession extends HTMLElement {
   private session: Session | null = null;
@@ -47,7 +47,7 @@ class TypingSession extends HTMLElement {
         <div class="space-y-5">
           <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md dark:border-secondary-700/60 dark:bg-secondary-800/70">
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400 dark:text-secondary-300">
-              Sentence <span data-role="index">1 / 3</span>
+              Sentence <span data-role="index">1 / --</span>
             </p>
             <p
               class="mt-3 text-lg font-semibold text-secondary-900 dark:text-secondary-100"
@@ -99,9 +99,41 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const sentences = SENTENCES.map(
-        (text) => new Sentence(createEnglishSentenceDefinition(text)),
-      );
+      const rawPack = this.getAttribute("sentence-pack");
+      if (!rawPack) {
+        if (this.status) this.status.textContent = "No sentences available.";
+        return;
+      }
+
+      let pack: ReturnType<typeof parseSentencePack>;
+      try {
+        pack = parseSentencePack(JSON.parse(rawPack));
+      } catch {
+        if (this.status) this.status.textContent = "No sentences available.";
+        return;
+      }
+
+      const { language } = pack;
+      const sentences = (() => {
+        switch (language) {
+          case "ja":
+            return pack.sentences.map(
+              (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
+            );
+          case "en":
+            return pack.sentences.map(
+              (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
+            );
+          default:
+            throw new Error(`Unexpected language: ${language satisfies never}`);
+        }
+      })();
+
+      if (sentences.length === 0) {
+        if (this.status) this.status.textContent = "No sentences available.";
+        return;
+      }
+
       this.session = new Session(sentences, {
         onSessionCompleted: () => this.finishSession(),
       });
@@ -131,8 +163,8 @@ class TypingSession extends HTMLElement {
     }
 
     const typed = sentence.typed;
-    const reading = sentence.reading;
-    const remaining = reading.slice(typed.length);
+    const preview = sentence.previewPattern;
+    const remaining = preview.slice(typed.length);
 
     if (this.sentenceProgress) {
       this.sentenceProgress.textContent = typed;

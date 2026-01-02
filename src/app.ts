@@ -1,7 +1,7 @@
 import { Hono } from "hono";
 import type { Bindings } from "./bindings.js";
 import { handleGetHome } from "./handlers/home.js";
-import { handleGetPlay } from "./handlers/play.js";
+import { handleGetPlay, validateGetPlayQuery } from "./handlers/play.js";
 import {
   handleGetResult,
   handlePostResult,
@@ -17,7 +17,7 @@ app.use("*", validateBindings);
 app.use("*", applyNoindexForNonProduction);
 
 app.get("/", handleGetHome);
-app.get("/play", handleGetPlay);
+app.get("/play", validateGetPlayQuery, handleGetPlay);
 app.get("/robots.txt", handleGetRobots);
 app.get("/result", validateGetResultQuery, handleGetResult);
 app.post("/result", validatePostResultForm, handlePostResult);
