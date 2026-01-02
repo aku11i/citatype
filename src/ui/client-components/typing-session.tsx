@@ -6,14 +6,8 @@ import {
   createJapaneseSentenceDefinition,
 } from "typengine";
 import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
-import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 
-type SentencePayload = {
-  text: string;
-  reading?: string;
-};
-
-type TypingSessionCopy = {
+export type TypingSessionMessages = {
   sentenceLabel: string;
   typeHereLabel: string;
   placeholder: string;
@@ -24,18 +18,12 @@ type TypingSessionCopy = {
   statusUnavailable: string;
 };
 
-type TypingSessionData = {
+export type TypingSessionData = {
   pack: SentencePack;
-  copy: TypingSessionCopy;
+  messages: TypingSessionMessages;
 };
 
-const DEFAULT_SENTENCES: SentencePayload[] = [
-  { text: "citatype is a simple typing app" },
-  { text: "type three sentences to finish" },
-  { text: "stay calm and keep typing" },
-];
-
-const DEFAULT_COPY: TypingSessionCopy = {
+const DEFAULT_MESSAGES: TypingSessionMessages = {
   sentenceLabel: "Sentence",
   typeHereLabel: "Type here",
   placeholder: "Start typing...",
@@ -44,40 +32,6 @@ const DEFAULT_COPY: TypingSessionCopy = {
   statusComplete: "Session complete.",
   statusRedirect: "Session complete. Redirecting to result...",
   statusUnavailable: "No sentences available.",
-};
-
-const parseSentences = (value: string | null): SentencePayload[] => {
-  if (!value) return DEFAULT_SENTENCES;
-
-  try {
-    const parsed = JSON.parse(value);
-    if (Array.isArray(parsed)) {
-      const mapped = parsed
-        .filter((item) => item && typeof item === "object" && "text" in item)
-        .map((item) => ({
-          text: String((item as { text: unknown }).text),
-          reading:
-            "reading" in (item as { reading?: unknown })
-              ? String((item as { reading?: unknown }).reading)
-              : undefined,
-        }));
-      return mapped.length > 0 ? mapped : DEFAULT_SENTENCES;
-    }
-  } catch {
-    return DEFAULT_SENTENCES;
-  }
-
-  return DEFAULT_SENTENCES;
-};
-
-const parseSentencePackAttribute = (value: string | null) => {
-  if (!value) return null;
-
-  try {
-    return parseSentencePack(JSON.parse(value));
-  } catch {
-    return null;
-  }
 };
 
 class TypingSession extends HTMLElement {
@@ -89,7 +43,7 @@ class TypingSession extends HTMLElement {
   private sentenceIndex: HTMLElement | null = null;
   private status: HTMLElement | null = null;
   private finished = false;
-  private copy: TypingSessionCopy = DEFAULT_COPY;
+  private messages: TypingSessionMessages = DEFAULT_MESSAGES;
   private dataState: TypingSessionData | null = null;
 
   constructor() {
@@ -131,7 +85,7 @@ class TypingSession extends HTMLElement {
       if (this.status) this.status.textContent = "";
       this.updateView();
     } else if (this.status) {
-      this.status.textContent = this.copy.statusMissed;
+      this.status.textContent = this.messages.statusMissed;
     }
 
     if (this.session.completed) this.finishSession();
@@ -149,14 +103,14 @@ class TypingSession extends HTMLElement {
 
   private initialize() {
     const data = this.dataState;
-    this.copy = data?.copy ?? DEFAULT_COPY;
+    this.messages = data?.messages ?? DEFAULT_MESSAGES;
 
     if (!this.input) {
       render(
         <div class="space-y-5">
           <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md">
             <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
-              {this.copy.sentenceLabel} <span data-role="index">1 / --</span>
+              {this.messages.sentenceLabel} <span data-role="index">1 / --</span>
             </p>
             <p class="mt-3 text-lg font-semibold text-secondary-900" data-role="sentence">
               ...
@@ -169,7 +123,7 @@ class TypingSession extends HTMLElement {
 
           <div class="space-y-2">
             <label class="text-sm font-medium text-secondary-700" for="typing-input">
-              {this.copy.typeHereLabel}
+              {this.messages.typeHereLabel}
             </label>
             <input
               id="typing-input"
@@ -180,10 +134,10 @@ class TypingSession extends HTMLElement {
               autocorrect="off"
               spellcheck={false}
               class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30"
-              placeholder={this.copy.placeholder}
+              placeholder={this.messages.placeholder}
               data-role="input"
             />
-            <p class="text-xs text-secondary-500">{this.copy.helper}</p>
+            <p class="text-xs text-secondary-500">{this.messages.helper}</p>
           </div>
 
           <p class="text-xs text-secondary-500" data-role="status"></p>
@@ -200,34 +154,22 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const pack = data?.pack ?? parseSentencePackAttribute(this.getAttribute("sentence-pack"));
+      const pack = data?.pack;
+      if (!pack) {
+        throw new Error("TypingSession: pack is required");
+      }
 
-      const sentenceInstances = (() => {
-        if (pack) {
-          if (pack.language === "ja") {
-            return pack.sentences.map(
+      const sentenceInstances =
+        pack.language === "ja"
+          ? pack.sentences.map(
               (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
+            )
+          : pack.sentences.map(
+              (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
             );
-          }
-
-          return pack.sentences.map(
-            (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
-          );
-        }
-
-        const locale = this.getAttribute("data-locale") ?? "en";
-        const sentences = parseSentences(this.getAttribute("data-sentences"));
-        return sentences.map((sentence) => {
-          const reading = sentence.reading ?? sentence.text;
-          return locale === "ja"
-            ? new Sentence(createJapaneseSentenceDefinition(sentence.text, reading))
-            : new Sentence(createEnglishSentenceDefinition(sentence.text, reading));
-        });
-      })();
 
       if (sentenceInstances.length === 0) {
-        if (this.status) this.status.textContent = this.copy.statusUnavailable;
-        return;
+        throw new Error("TypingSession: sentences are required");
       }
 
       this.session = new Session(sentenceInstances, {
@@ -243,7 +185,7 @@ class TypingSession extends HTMLElement {
 
     const sentence = this.session.currentSentence;
     if (!sentence) {
-      if (this.status) this.status.textContent = this.copy.statusComplete;
+      if (this.status) this.status.textContent = this.messages.statusComplete;
       return;
     }
 
@@ -279,7 +221,7 @@ class TypingSession extends HTMLElement {
     }
 
     if (this.status) {
-      this.status.textContent = this.copy.statusRedirect;
+      this.status.textContent = this.messages.statusRedirect;
     }
 
     const form = this.closest("form");

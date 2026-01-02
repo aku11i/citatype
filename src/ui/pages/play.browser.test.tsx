@@ -41,7 +41,7 @@ describe("PlayPage browser", () => {
     const data = JSON.parse(textContent);
 
     expect(data.pack).toEqual(pack);
-    expect(data.copy).toEqual({
+    expect(data.messages).toEqual({
       sentenceLabel: t("typingSession.sentenceLabel"),
       typeHereLabel: t("typingSession.typeHereLabel"),
       placeholder: t("typingSession.placeholder"),

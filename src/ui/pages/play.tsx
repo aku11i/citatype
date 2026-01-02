@@ -6,6 +6,7 @@ import { localizedPath } from "../../i18n/paths.js";
 import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { BaseLayout } from "../layouts/base.js";
 import { WebComponentData } from "../components/web-component-data.js";
+import type { TypingSessionData } from "../client-components/typing-session.js";
 
 type PlayPageProps = {
   startedAt: number;
@@ -19,9 +20,9 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
   const sentenceCount = pack.sentences.length;
   const sentenceLabel = sentenceCount === 1 ? t("play.sentenceLabel") : t("play.sentencesLabel");
 
-  const typingSessionData = {
+  const typingSessionData: TypingSessionData = {
     pack,
-    copy: {
+    messages: {
       sentenceLabel: t("typingSession.sentenceLabel"),
       typeHereLabel: t("typingSession.typeHereLabel"),
       placeholder: t("typingSession.placeholder"),
