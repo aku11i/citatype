@@ -30,7 +30,6 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
       statusMissed: t("typingSession.statusMissed"),
       statusComplete: t("typingSession.statusComplete"),
       statusRedirect: t("typingSession.statusRedirect"),
-      statusUnavailable: t("typingSession.statusUnavailable"),
     },
   };
 

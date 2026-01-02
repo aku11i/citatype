@@ -49,7 +49,6 @@ describe("PlayPage browser", () => {
       statusMissed: t("typingSession.statusMissed"),
       statusComplete: t("typingSession.statusComplete"),
       statusRedirect: t("typingSession.statusRedirect"),
-      statusUnavailable: t("typingSession.statusUnavailable"),
     });
   });
 });

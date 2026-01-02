@@ -15,23 +15,11 @@ export type TypingSessionMessages = {
   statusMissed: string;
   statusComplete: string;
   statusRedirect: string;
-  statusUnavailable: string;
 };
 
 export type TypingSessionData = {
   pack: SentencePack;
   messages: TypingSessionMessages;
-};
-
-const DEFAULT_MESSAGES: TypingSessionMessages = {
-  sentenceLabel: "Sentence",
-  typeHereLabel: "Type here",
-  placeholder: "Start typing...",
-  helper: "Type exactly as shown. Backspace is not supported.",
-  statusMissed: "Missed key. Keep going.",
-  statusComplete: "Session complete.",
-  statusRedirect: "Session complete. Redirecting to result...",
-  statusUnavailable: "No sentences available.",
 };
 
 class TypingSession extends HTMLElement {
@@ -43,7 +31,6 @@ class TypingSession extends HTMLElement {
   private sentenceIndex: HTMLElement | null = null;
   private status: HTMLElement | null = null;
   private finished = false;
-  private messages: TypingSessionMessages = DEFAULT_MESSAGES;
   private dataState: TypingSessionData | null = null;
 
   constructor() {
@@ -58,6 +45,13 @@ class TypingSession extends HTMLElement {
 
   get data() {
     return this.dataState;
+  }
+
+  private get messages(): TypingSessionMessages {
+    if (!this.dataState) {
+      throw new Error("TypingSession: data is required");
+    }
+    return this.dataState.messages;
   }
 
   set data(value: TypingSessionData | null) {
@@ -103,7 +97,9 @@ class TypingSession extends HTMLElement {
 
   private initialize() {
     const data = this.dataState;
-    this.messages = data?.messages ?? DEFAULT_MESSAGES;
+    if (!data) {
+      throw new Error("TypingSession: data is required");
+    }
 
     if (!this.input) {
       render(
@@ -154,10 +150,7 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const pack = data?.pack;
-      if (!pack) {
-        throw new Error("TypingSession: pack is required");
-      }
+      const pack = data.pack;
 
       const sentenceInstances =
         pack.language === "ja"
