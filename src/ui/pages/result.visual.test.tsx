@@ -13,7 +13,6 @@ describe("ResultPage visual", () => {
 
     document.documentElement.innerHTML = parsed.documentElement.innerHTML;
 
-    const viewportLabel = `${window.innerWidth}x${window.innerHeight}`;
-    await expect(document.body).toMatchScreenshot(`result-${viewportLabel}.png`);
+    await expect(document.body).toMatchScreenshot();
   });
 });
