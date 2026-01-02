@@ -1,3 +1,4 @@
+import { raw } from "hono/html";
 import type { FC } from "hono/jsx";
 import type { Translate } from "../../i18n/createI18n.js";
 import type { Locale } from "../../i18n/locales.js";
@@ -12,10 +13,6 @@ type PlayPageProps = {
   t: Translate;
   meta: PageMeta;
   pack: SentencePack;
-};
-
-const serializeData = (value: unknown) => {
-  return JSON.stringify(value).replace(/</g, "\\u003c");
 };
 
 export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }) => {
@@ -35,8 +32,7 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
       statusUnavailable: t("typingSession.statusUnavailable"),
     },
   };
-
-  const typingSessionPayload = serializeData(typingSessionData);
+  const typingSessionJson = JSON.stringify(typingSessionData).replace(/</g, "\\u003c");
 
   return (
     <BaseLayout title={t("meta.playTitle")} locale={locale} meta={meta} t={t} scene="typing">
@@ -58,19 +54,16 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
           <typing-session id="typing-session"></typing-session>
         </form>
 
-        <script
-          type="application/json"
-          id="typing-session-data"
-          dangerouslySetInnerHTML={{
-            __html: typingSessionPayload,
-          }}
-        ></script>
-        <script
-          type="module"
-          dangerouslySetInnerHTML={{
-            __html: `const dataEl = document.getElementById("typing-session-data");\nconst el = document.getElementById("typing-session");\nif (dataEl && el) {\n  const raw = dataEl.textContent;\n  if (raw) {\n    el.data = JSON.parse(raw);\n  }\n}`,
-          }}
-        ></script>
+        <script type="application/json" id="typing-session-data">
+          {raw(typingSessionJson)}
+        </script>
+        <script type="module">
+          {`const data = JSON.parse(document.getElementById("typing-session-data")?.textContent ?? "{}");
+const el = document.getElementById("typing-session");
+if (el) {
+  el.data = data;
+}`}
+        </script>
 
         <a
           href={localizedPath(locale, "/")}
