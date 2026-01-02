@@ -1,11 +1,16 @@
 import type { FC } from "hono/jsx";
+import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { BaseLayout } from "../layouts/base.js";
 
 type PlayPageProps = {
   startedAt: number;
+  pack: SentencePack;
 };
 
-export const PlayPage: FC<PlayPageProps> = ({ startedAt }) => {
+export const PlayPage: FC<PlayPageProps> = ({ startedAt, pack }) => {
+  const sentenceCount = pack.sentences.length;
+  const sentenceLabel = sentenceCount === 1 ? "sentence" : "sentences";
+
   return (
     <BaseLayout title="Play | Citatype" scene="typing">
       <div class="space-y-8">
@@ -17,13 +22,14 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt }) => {
             Play
           </h1>
           <p class="text-sm text-secondary-600 dark:text-secondary-300">
-            Type three sentences in order. When you finish, the result page will open automatically.
+            Type {sentenceCount} {sentenceLabel} in order. When you finish, the result page will
+            open automatically.
           </p>
         </header>
 
         <form method="post" action="/result" class="space-y-6">
           <input type="hidden" name="startedAt" value={String(startedAt)} />
-          <typing-session></typing-session>
+          <typing-session sentence-pack={JSON.stringify(pack)}></typing-session>
         </form>
 
         <a
