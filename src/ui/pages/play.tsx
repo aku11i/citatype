@@ -59,9 +59,16 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
         </form>
 
         <script
+          type="application/json"
+          id="typing-session-data"
+          dangerouslySetInnerHTML={{
+            __html: typingSessionPayload,
+          }}
+        ></script>
+        <script
           type="module"
           dangerouslySetInnerHTML={{
-            __html: `const el = document.getElementById("typing-session");\nif (el) {\n  el.data = ${typingSessionPayload};\n}`,
+            __html: `const dataEl = document.getElementById("typing-session-data");\nconst el = document.getElementById("typing-session");\nif (dataEl && el) {\n  const raw = dataEl.textContent;\n  if (raw) {\n    el.data = JSON.parse(raw);\n  }\n}`,
           }}
         ></script>
 
