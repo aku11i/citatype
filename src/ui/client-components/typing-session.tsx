@@ -5,6 +5,7 @@ import {
   createEnglishSentenceDefinition,
   createJapaneseSentenceDefinition,
 } from "typengine";
+import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 
 type SentencePayload = {
   text: string;
@@ -19,6 +20,7 @@ type TypingSessionCopy = {
   statusMissed: string;
   statusComplete: string;
   statusRedirect: string;
+  statusUnavailable: string;
 };
 
 const DEFAULT_SENTENCES: SentencePayload[] = [
@@ -35,6 +37,7 @@ const DEFAULT_COPY: TypingSessionCopy = {
   statusMissed: "Missed key. Keep going.",
   statusComplete: "Session complete.",
   statusRedirect: "Session complete. Redirecting to result...",
+  statusUnavailable: "No sentences available.",
 };
 
 const parseSentences = (value: string | null): SentencePayload[] => {
@@ -59,6 +62,16 @@ const parseSentences = (value: string | null): SentencePayload[] => {
   }
 
   return DEFAULT_SENTENCES;
+};
+
+const parseSentencePackAttribute = (value: string | null) => {
+  if (!value) return null;
+
+  try {
+    return parseSentencePack(JSON.parse(value));
+  } catch {
+    return null;
+  }
 };
 
 class TypingSession extends HTMLElement {
@@ -105,32 +118,28 @@ class TypingSession extends HTMLElement {
       statusMissed: this.getAttribute("data-status-missed") ?? DEFAULT_COPY.statusMissed,
       statusComplete: this.getAttribute("data-status-complete") ?? DEFAULT_COPY.statusComplete,
       statusRedirect: this.getAttribute("data-status-redirect") ?? DEFAULT_COPY.statusRedirect,
+      statusUnavailable:
+        this.getAttribute("data-status-unavailable") ?? DEFAULT_COPY.statusUnavailable,
     };
 
     if (!this.input) {
       render(
         <div class="space-y-5">
-          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md dark:border-secondary-700/60 dark:bg-secondary-800/70">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400 dark:text-secondary-300">
-              {this.copy.sentenceLabel} <span data-role="index">1 / 3</span>
+          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md">
+            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+              {this.copy.sentenceLabel} <span data-role="index">1 / --</span>
             </p>
-            <p
-              class="mt-3 text-lg font-semibold text-secondary-900 dark:text-secondary-100"
-              data-role="sentence"
-            >
+            <p class="mt-3 text-lg font-semibold text-secondary-900" data-role="sentence">
               ...
             </p>
             <p class="mt-3 text-sm font-medium">
-              <span class="text-secondary-900 dark:text-secondary-100" data-role="typed"></span>
-              <span class="text-secondary-400 dark:text-secondary-400" data-role="remaining"></span>
+              <span class="text-secondary-900" data-role="typed"></span>
+              <span class="text-secondary-400" data-role="remaining"></span>
             </p>
           </div>
 
           <div class="space-y-2">
-            <label
-              class="text-sm font-medium text-secondary-700 dark:text-secondary-300"
-              for="typing-input"
-            >
+            <label class="text-sm font-medium text-secondary-700" for="typing-input">
               {this.copy.typeHereLabel}
             </label>
             <input
@@ -141,14 +150,14 @@ class TypingSession extends HTMLElement {
               autocapitalize="off"
               autocorrect="off"
               spellcheck={false}
-              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30 dark:border-secondary-700/60 dark:bg-secondary-900/60 dark:text-secondary-100 dark:placeholder:text-secondary-500 dark:focus:border-primary-400 dark:focus:ring-primary-500/40"
+              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30"
               placeholder={this.copy.placeholder}
               data-role="input"
             />
             <p class="text-xs text-secondary-500">{this.copy.helper}</p>
           </div>
 
-          <p class="text-xs text-secondary-500 dark:text-secondary-400" data-role="status"></p>
+          <p class="text-xs text-secondary-500" data-role="status"></p>
         </div>,
         this,
       );
@@ -162,16 +171,35 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const locale = this.getAttribute("data-locale") ?? "en";
-      const sentences = parseSentences(this.getAttribute("data-sentences"));
-      const sentenceInstances = sentences.map((sentence) => {
-        if (locale === "ja") {
-          const reading = sentence.reading ?? sentence.text;
-          return new Sentence(createJapaneseSentenceDefinition(sentence.text, reading));
+      const pack = parseSentencePackAttribute(this.getAttribute("sentence-pack"));
+
+      const sentenceInstances = (() => {
+        if (pack) {
+          if (pack.language === "ja") {
+            return pack.sentences.map(
+              (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
+            );
+          }
+
+          return pack.sentences.map(
+            (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
+          );
         }
-        const reading = sentence.reading ?? sentence.text;
-        return new Sentence(createEnglishSentenceDefinition(sentence.text, reading));
-      });
+
+        const locale = this.getAttribute("data-locale") ?? "en";
+        const sentences = parseSentences(this.getAttribute("data-sentences"));
+        return sentences.map((sentence) => {
+          const reading = sentence.reading ?? sentence.text;
+          return locale === "ja"
+            ? new Sentence(createJapaneseSentenceDefinition(sentence.text, reading))
+            : new Sentence(createEnglishSentenceDefinition(sentence.text, reading));
+        });
+      })();
+
+      if (sentenceInstances.length === 0) {
+        if (this.status) this.status.textContent = this.copy.statusUnavailable;
+        return;
+      }
 
       this.session = new Session(sentenceInstances, {
         onSessionCompleted: () => this.finishSession(),
@@ -202,8 +230,8 @@ class TypingSession extends HTMLElement {
     }
 
     const typed = sentence.typed;
-    const reading = sentence.reading;
-    const remaining = reading.slice(typed.length);
+    const preview = sentence.previewPattern;
+    const remaining = preview.slice(typed.length);
 
     if (this.sentenceProgress) {
       this.sentenceProgress.textContent = typed;

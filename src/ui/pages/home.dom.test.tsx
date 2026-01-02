@@ -35,12 +35,12 @@ describe("HomePage", () => {
     document.body.innerHTML = "";
   });
 
-  it("renders the heading and play link", async () => {
+  it("renders the heading and start link", async () => {
     const { HomePage } = await import("./home.js");
     render(<HomePage {...createPageProps()} />, document.body);
 
     const heading = getByRole(document.body, "heading", { name: "Citatype" });
-    const link = getByRole(document.body, "link", { name: "PLAY" });
+    const link = getByRole(document.body, "link", { name: "START" });
 
     expect(heading).toBeInTheDocument();
     expect(link).toBeInTheDocument();

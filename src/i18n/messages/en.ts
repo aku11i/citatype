@@ -20,6 +20,8 @@ export type Messages = {
     eyebrow: string;
     title: string;
     description: string;
+    sentenceLabel: string;
+    sentencesLabel: string;
     backLink: string;
   };
   result: {
@@ -32,6 +34,8 @@ export type Messages = {
     elapsed: string;
   };
   typingSession: {
+    packLabel: string;
+    packDescription: string;
     sentenceLabel: string;
     typeHereLabel: string;
     placeholder: string;
@@ -39,6 +43,7 @@ export type Messages = {
     statusMissed: string;
     statusComplete: string;
     statusRedirect: string;
+    statusUnavailable: string;
     sentences: TypingSentence[];
   };
   languageSwitcher: {
@@ -59,17 +64,19 @@ export const messages: Messages = {
     resultTitle: "Result | Citatype",
   },
   home: {
-    eyebrow: "Typing Practice",
+    eyebrow: "Calm Typing",
     title: "Citatype",
-    description: "A simple typing session with no modes or extra settings.",
-    cta: "PLAY",
-    helper: "Press play to start immediately.",
+    description: "A quiet typing session for relaxation, not practice.",
+    cta: "START",
+    helper: "No setup. Just begin.",
   },
   play: {
     eyebrow: "Session",
     title: "Play",
     description:
-      "Type three sentences in order. When you finish, the result page will open automatically.",
+      "Type {count} {label} in order. When you finish, the result page will open automatically.",
+    sentenceLabel: "sentence",
+    sentencesLabel: "sentences",
     backLink: "Back to home",
   },
   result: {
@@ -82,6 +89,8 @@ export const messages: Messages = {
     elapsed: "{seconds} s",
   },
   typingSession: {
+    packLabel: "Daily Focus",
+    packDescription: "Short English prompts for steady typing.",
     sentenceLabel: "Sentence",
     typeHereLabel: "Type here",
     placeholder: "Start typing...",
@@ -89,6 +98,7 @@ export const messages: Messages = {
     statusMissed: "Missed key. Keep going.",
     statusComplete: "Session complete.",
     statusRedirect: "Session complete. Redirecting to result...",
+    statusUnavailable: "No sentences available.",
     sentences: [
       { text: "citatype is a simple typing app" },
       { text: "type three sentences to finish" },

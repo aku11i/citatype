@@ -7,16 +7,18 @@ export const messages: Messages = {
     resultTitle: "結果 | Citatype",
   },
   home: {
-    eyebrow: "タイピング練習",
+    eyebrow: "落ち着いたタイピング",
     title: "Citatype",
-    description: "モードや追加設定のない、シンプルなタイピングセッション。",
-    cta: "プレイ",
-    helper: "プレイを押すとすぐに開始します。",
+    description: "練習ではなく、リラックスのための静かなタイピング。",
+    cta: "開始",
+    helper: "準備はいりません。すぐに始められます。",
   },
   play: {
     eyebrow: "セッション",
     title: "プレイ",
-    description: "3つの文を順に入力します。完了すると結果ページが自動で開きます。",
+    description: "{count} {label} を順に入力します。完了すると結果ページが自動で開きます。",
+    sentenceLabel: "文",
+    sentencesLabel: "文",
     backLink: "ホームに戻る",
   },
   result: {
@@ -29,6 +31,8 @@ export const messages: Messages = {
     elapsed: "{seconds} 秒",
   },
   typingSession: {
+    packLabel: "デイリー",
+    packDescription: "短い日本語のフレーズで落ち着いて入力。",
     sentenceLabel: "文",
     typeHereLabel: "ここに入力",
     placeholder: "入力を開始...",
@@ -36,6 +40,7 @@ export const messages: Messages = {
     statusMissed: "入力が違います。続けてください。",
     statusComplete: "セッション完了。",
     statusRedirect: "セッション完了。結果ページへ移動します...",
+    statusUnavailable: "表示できる文がありません。",
     sentences: [
       { text: "たいぴんぐはたのしい", reading: "たいぴんぐはたのしい" },
       { text: "みっつのぶんをうちます", reading: "みっつのぶんをうちます" },

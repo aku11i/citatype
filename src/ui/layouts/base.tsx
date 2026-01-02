@@ -9,14 +9,11 @@ type BaseLayoutProps = PropsWithChildren<{
   locale: Locale;
   meta: PageMeta;
   t: Translate;
-  scene?: "typing";
+  scene?: "typing" | "calm";
 }>;
 
 export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene, children }) => {
-  const bodyClass =
-    scene === "typing"
-      ? "min-h-screen font-sans text-secondary-900 dark:text-secondary-100 dark"
-      : "min-h-screen font-sans text-secondary-900";
+  const bodyClass = "min-h-screen font-sans text-secondary-900";
 
   return (
     <html lang={locale}>

@@ -2,7 +2,7 @@ import { Hono } from "hono";
 import { languageDetector, type LanguageVariables } from "hono/language";
 import type { Bindings } from "./bindings.js";
 import { handleGetHome } from "./handlers/home.js";
-import { handleGetPlay } from "./handlers/play.js";
+import { handleGetPlay, validateGetPlayQuery } from "./handlers/play.js";
 import {
   handleGetResult,
   handlePostResult,
@@ -51,7 +51,7 @@ const localized = new Hono<AppEnv>();
 localized.use("*", applyLocale);
 
 localized.get("/", handleGetHome);
-localized.get("/play", handleGetPlay);
+localized.get("/play", validateGetPlayQuery, handleGetPlay);
 localized.get("/result", validateGetResultQuery, handleGetResult);
 localized.post("/result", validatePostResultForm, handlePostResult);
 
