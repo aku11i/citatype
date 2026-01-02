@@ -5,19 +5,7 @@ import {
   createEnglishSentenceDefinition,
   createJapaneseSentenceDefinition,
 } from "typengine";
-import type { SentencePack } from "../../domain/sentences/parse-sentence-pack.js";
 import { parseSentencePack } from "../../domain/sentences/parse-sentence-pack.js";
-
-const parseSentencePackAttribute = (host: Element): SentencePack | null => {
-  const raw = host.getAttribute("sentence-pack");
-  if (!raw) return null;
-
-  try {
-    return parseSentencePack(JSON.parse(raw));
-  } catch {
-    return null;
-  }
-};
 
 class TypingSession extends HTMLElement {
   private session: Session | null = null;
@@ -111,8 +99,16 @@ class TypingSession extends HTMLElement {
     }
 
     if (!this.session) {
-      const pack = parseSentencePackAttribute(this);
-      if (!pack) {
+      const rawPack = this.getAttribute("sentence-pack");
+      if (!rawPack) {
+        if (this.status) this.status.textContent = "No sentences available.";
+        return;
+      }
+
+      let pack: ReturnType<typeof parseSentencePack>;
+      try {
+        pack = parseSentencePack(JSON.parse(rawPack));
+      } catch {
         if (this.status) this.status.textContent = "No sentences available.";
         return;
       }
