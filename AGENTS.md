@@ -33,6 +33,12 @@ src/
 - One file per function or class (types are allowed).
 - Internal helper functions may live in the same file when they are module-private.
 - After implementation, run `pnpm fix`, `pnpm typecheck`, and `pnpm test`.
+- When making UI-related changes, also run `pnpm capture {*.visual.test.tsx}` to capture screenshots and verify the visuals match the intended design.
+- Prefer functions over classes; use classes only when stateful behavior or polymorphism is clearly needed.
+- Prefer `type` aliases for types; use `interface` only when extension or declaration merging is required.
+- Keep modules small and focused; avoid circular dependencies.
+- Keep comments minimal and purposeful; add them only when the intent is not obvious from the code.
+- If a function takes multiple optional parameters, prefer an object parameter for readability.
 
 ## Language policy
 
