@@ -12,10 +12,5 @@
     "skipLibCheck": true,
     "types": ["@vitest/browser"]
   },
-  "include": [
-    "src",
-    "vitest.setup.browser.ts",
-    "vitest.setup.dom.ts",
-    "vitest.setup.a11y.ts"
-  ]
+  "include": ["src", "vitest.setup.browser.ts", "vitest.setup.dom.ts", "vitest.setup.a11y.ts"]
 }
