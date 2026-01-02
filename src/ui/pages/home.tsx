@@ -17,11 +17,9 @@ export const HomePage: FC = () => {
         </header>
 
         <div class="space-y-3">
-          <form method="get" action="/play">
-            <Button type="submit" class="px-6">
-              PLAY
-            </Button>
-          </form>
+          <Button as="a" href="/play" class="px-6">
+            PLAY
+          </Button>
           <p class="text-xs text-secondary-500">Press play to start immediately.</p>
         </div>
       </div>

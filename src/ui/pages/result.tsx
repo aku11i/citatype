@@ -30,16 +30,12 @@ export const ResultPage: FC<ResultPageProps> = ({ elapsedMs }) => {
         </section>
 
         <div class="flex flex-wrap gap-3">
-          <form method="get" action="/play">
-            <Button type="submit" class="px-6">
-              Play again
-            </Button>
-          </form>
-          <form method="get" action="/">
-            <Button type="submit" variant="outline" color="secondary" class="px-6">
-              Home
-            </Button>
-          </form>
+          <Button as="a" href="/play" class="px-6">
+            Play again
+          </Button>
+          <Button as="a" href="/" variant="outline" color="secondary" class="px-6">
+            Home
+          </Button>
         </div>
       </div>
     </BaseLayout>
