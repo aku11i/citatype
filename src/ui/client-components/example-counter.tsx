@@ -1,5 +1,8 @@
 import { render } from "hono/jsx/dom";
 
+const DEFAULT_LABEL = "Counter";
+const DEFAULT_INCREMENT_LABEL = "+1";
+
 class ExampleCounter extends HTMLElement {
   private count = 0;
   private button: HTMLButtonElement | null = null;
@@ -12,21 +15,22 @@ class ExampleCounter extends HTMLElement {
 
   connectedCallback() {
     if (!this.button) {
+      const label = this.getAttribute("data-label") ?? DEFAULT_LABEL;
+      const incrementLabel = this.getAttribute("data-increment-label") ?? DEFAULT_INCREMENT_LABEL;
+
       render(
         <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
           <div class="flex items-center justify-between gap-4">
             <div>
-              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Counter</p>
-              <p class="mt-2 text-3xl font-semibold text-slate-900" data-role="value">
-                0
-              </p>
+              <p class="text-xs font-medium uppercase tracking-wide text-slate-400">{label}</p>
+              <p class="mt-2 text-3xl font-semibold text-slate-900" data-role="value"></p>
             </div>
             <button
               type="button"
               class="rounded-full bg-slate-900 px-4 py-2 text-sm font-semibold text-white transition hover:bg-slate-800"
               data-role="increment"
             >
-              +1
+              {incrementLabel}
             </button>
           </div>
         </div>,

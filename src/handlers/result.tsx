@@ -1,6 +1,8 @@
-import type { Context, Env } from "hono";
+import type { Context } from "hono";
 import { sValidator } from "@hono/standard-validator";
 import * as v from "valibot";
+import type { LocaleVariables } from "../middleware/locale.js";
+import { createPageMeta } from "../i18n/page-meta.js";
 import { ResultPage } from "../ui/pages/result.js";
 
 const numberFromString = v.pipe(v.string(), v.toNumber());
@@ -34,7 +36,9 @@ type ResultQueryInput = {
 export const validatePostResultForm = sValidator("form", resultFormSchema);
 export const validateGetResultQuery = sValidator("query", resultQuerySchema);
 
-export const handlePostResult = (c: Context<Env, "/result", ResultFormInput>) => {
+export const handlePostResult = (
+  c: Context<{ Variables: LocaleVariables }, string, ResultFormInput>,
+) => {
   let elapsedMs: number | null = null;
 
   const { startedAt } = c.req.valid("form");
@@ -42,10 +46,20 @@ export const handlePostResult = (c: Context<Env, "/result", ResultFormInput>) =>
     elapsedMs = Math.max(0, Date.now() - startedAt);
   }
 
-  return c.html(<ResultPage elapsedMs={elapsedMs} />);
+  const locale = c.get("locale");
+  const t = c.get("t");
+  const meta = createPageMeta({
+    locale,
+    path: "/result",
+    requestUrl: c.req.url,
+  });
+
+  return c.html(<ResultPage elapsedMs={elapsedMs} locale={locale} t={t} meta={meta} />);
 };
 
-export const handleGetResult = (c: Context<Env, "/result", ResultQueryInput>) => {
+export const handleGetResult = (
+  c: Context<{ Variables: LocaleVariables }, string, ResultQueryInput>,
+) => {
   let elapsedMs: number | null = null;
 
   const { elapsedMs: queryElapsed } = c.req.valid("query");
@@ -53,5 +67,13 @@ export const handleGetResult = (c: Context<Env, "/result", ResultQueryInput>) =>
     elapsedMs = queryElapsed;
   }
 
-  return c.html(<ResultPage elapsedMs={elapsedMs} />);
+  const locale = c.get("locale");
+  const t = c.get("t");
+  const meta = createPageMeta({
+    locale,
+    path: "/result",
+    requestUrl: c.req.url,
+  });
+
+  return c.html(<ResultPage elapsedMs={elapsedMs} locale={locale} t={t} meta={meta} />);
 };
