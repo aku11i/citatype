@@ -1,5 +1,5 @@
 import { renderToString } from "hono/jsx/dom/server";
-import { beforeEach, describe, expect, it } from "vitest";
+import { describe, expect, it } from "vitest";
 import { Button } from "./button.js";
 
 const variants = ["solid", "outline"] as const;
@@ -13,10 +13,6 @@ const label = {
 } as const;
 
 describe("Button visual", () => {
-  beforeEach(() => {
-    document.documentElement.innerHTML = "<head></head><body></body>";
-  });
-
   it("matches the variants and colors", async () => {
     const markup = renderToString(
       <div class="min-h-screen bg-secondary-50 px-8 py-10 text-secondary-900">
