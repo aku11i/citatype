@@ -69,6 +69,27 @@ export default defineConfig({
       {
         extends: true,
         test: {
+          name: "a11y",
+          include: visualTests,
+          exclude: [...defaultExclude],
+          setupFiles: ["./vitest.setup.a11y.ts"],
+          browser: {
+            enabled: true,
+            headless: true,
+            provider: playwright(),
+            instances: [
+              {
+                browser: "chromium",
+                name: "a11y-desktop",
+                viewport: { width: 1280, height: 800 },
+              },
+            ],
+          },
+        },
+      },
+      {
+        extends: true,
+        test: {
           name: "visual",
           include: visualTests,
           exclude: [...defaultExclude],
