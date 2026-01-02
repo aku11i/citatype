@@ -113,14 +113,21 @@ class TypingSession extends HTMLElement {
         return;
       }
 
-      const sentences =
-        pack.language === "ja"
-          ? pack.sentences.map(
+      const { language } = pack;
+      const sentences = (() => {
+        switch (language) {
+          case "ja":
+            return pack.sentences.map(
               (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
-            )
-          : pack.sentences.map(
+            );
+          case "en":
+            return pack.sentences.map(
               (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
             );
+          default:
+            throw new Error(`Unexpected language: ${language satisfies never}`);
+        }
+      })();
 
       if (sentences.length === 0) {
         if (this.status) this.status.textContent = "No sentences available.";
