@@ -15,7 +15,7 @@
     "typecheck": "tsgo",
     "lint": "oxlint . && oxfmt --check .",
     "fix": "oxlint . --fix && oxfmt --write .",
-    "test": "pnpm build:css && vitest run",
+    "test": "pnpm build:css && vitest run --project node --project dom --project browser",
     "test:core": "vitest run --project node --project dom",
     "test:browser": "pnpm build:css && vitest run --project browser",
     "test:visual": "pnpm build:css && vitest run --project visual",
