@@ -50,7 +50,7 @@ describe("Button visual", () => {
     );
     const parsed = new DOMParser().parseFromString(markup, "text/html");
 
-    document.documentElement.innerHTML = parsed.documentElement.innerHTML;
+    document.body.innerHTML = parsed.body.innerHTML;
 
     await expect(document.body).toMatchScreenshot();
   });
