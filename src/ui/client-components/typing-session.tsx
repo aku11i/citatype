@@ -115,20 +115,12 @@ class TypingSession extends HTMLElement {
 
       const sentences =
         pack.language === "ja"
-          ? pack.sentences.flatMap((entry) => {
-              try {
-                return [new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading))];
-              } catch {
-                return [];
-              }
-            })
-          : pack.sentences.flatMap((entry) => {
-              try {
-                return [new Sentence(createEnglishSentenceDefinition(entry.text))];
-              } catch {
-                return [];
-              }
-            });
+          ? pack.sentences.map(
+              (entry) => new Sentence(createJapaneseSentenceDefinition(entry.text, entry.reading)),
+            )
+          : pack.sentences.map(
+              (entry) => new Sentence(createEnglishSentenceDefinition(entry.text)),
+            );
 
       if (sentences.length === 0) {
         if (this.status) this.status.textContent = "No sentences available.";
