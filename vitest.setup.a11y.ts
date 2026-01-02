@@ -1,5 +1,4 @@
-import "./vitest.setup.browser.js";
-import { afterEach, expect } from "vitest";
+import { afterEach, beforeEach, expect } from "vitest";
 import axe from "axe-core";
 
 type AxeViolation = {
@@ -34,22 +33,24 @@ const formatA11yViolations = (violations: AxeViolation[]) =>
     })
     .join("\n\n");
 
-const ensureStylesheet = async () => {
-  if (!document.head) {
-    const head = document.createElement("head");
-    document.documentElement.prepend(head);
-  }
+const a11yScaffold = `
+  <head>
+    <title>Citatype</title>
+    <link rel="stylesheet" href="/tailwind.css" />
+  </head>
+  <body>
+    <main data-a11y-wrapper="true"></main>
+  </body>
+`;
 
-  const existingLink = document.querySelector('link[rel="stylesheet"][href="/tailwind.css"]');
+const waitForStylesheet = async () => {
+  const link = document.querySelector<HTMLLinkElement>(
+    'link[rel="stylesheet"][href="/tailwind.css"]',
+  );
 
-  if (existingLink) {
+  if (!link || link.sheet) {
     return;
   }
-
-  const link = document.createElement("link");
-  link.rel = "stylesheet";
-  link.href = "/tailwind.css";
-  document.head.appendChild(link);
 
   await new Promise<void>((resolve, reject) => {
     link.onload = () => resolve();
@@ -57,25 +58,30 @@ const ensureStylesheet = async () => {
   });
 };
 
-const ensureTitle = () => {
-  if (!document.title.trim()) {
-    document.title = "Citatype";
-  }
-};
+const wrapBodyContent = () => {
+  const descriptor = Object.getOwnPropertyDescriptor(Element.prototype, "innerHTML");
 
-const ensureMainLandmark = () => {
-  if (document.querySelector("main")) {
+  if (!descriptor?.get || !descriptor.set) {
     return;
   }
 
-  const main = document.createElement("main");
-  main.setAttribute("data-a11y-wrapper", "true");
+  Object.defineProperty(document.body, "innerHTML", {
+    configurable: true,
+    get: () => descriptor.get?.call(document.body),
+    set: (value: string) => {
+      if (typeof value === "string" && value.includes("<main")) {
+        descriptor.set?.call(document.body, value);
+        return;
+      }
 
-  while (document.body.firstChild) {
-    main.appendChild(document.body.firstChild);
-  }
+      const main = document.createElement("main");
+      main.setAttribute("data-a11y-wrapper", "true");
+      main.innerHTML = value;
 
-  document.body.appendChild(main);
+      descriptor.set?.call(document.body, "");
+      document.body.appendChild(main);
+    },
+  });
 };
 
 expect.extend({
@@ -85,11 +91,13 @@ expect.extend({
   }),
 });
 
-afterEach(async () => {
-  ensureTitle();
-  ensureMainLandmark();
-  await ensureStylesheet();
+beforeEach(async () => {
+  document.documentElement.innerHTML = a11yScaffold;
+  wrapBodyContent();
+  await waitForStylesheet();
+});
 
+afterEach(async () => {
   const { violations } = await axe.run(document);
   const details = formatA11yViolations(violations);
 
