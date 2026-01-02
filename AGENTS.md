@@ -32,6 +32,7 @@ src/
 - Keep code DRY: factor repeated logic into appropriately sized functions.
 - One file per function or class (types are allowed).
 - Internal helper functions may live in the same file when they are module-private.
+- The design system is defined in `docs/design-system.md`.
 - After implementation, run `pnpm fix`, `pnpm typecheck`, and `pnpm test`.
 - When making UI-related changes, also run `pnpm capture {*.visual.test.tsx}` to capture screenshots and verify the visuals match the intended design.
 - Prefer functions over classes; use classes only when stateful behavior or polymorphism is clearly needed.
