@@ -1,0 +1,60 @@
+name: Visual Regression Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      actions: read
+      issues: write
+      pull-requests: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8
+
+      - name: Install system fonts
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            fontconfig \
+            fonts-noto-cjk \
+            fonts-noto-color-emoji \
+            fonts-noto-core \
+            fonts-roboto \
+            fonts-liberation
+          fc-cache -f
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@41ff72655975bd51cab0327fa583b6e92b6d3061
+
+      - name: Setup Node.js
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f
+        with:
+          node-version-file: ".node-version"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Install Playwright Browsers
+        run: pnpm exec playwright install --with-deps chromium
+
+      - name: Run visual tests and update screenshots
+        run: pnpm test:visual:update
+
+      - name: Compare screenshots
+        # このPRがマージされたら本家に戻す
+        # https://github.com/reg-viz/reg-actions/pull/193
+        uses: aku11i/reg-actions@158f86a6c8ec8ea9851a6ba17ffbc3ee68498003
+        with:
+          github-token: "${{ secrets.GITHUB_TOKEN }}"
+          image-directory-path: ".screenshots"
+          outdated-comment-action: "minimize"

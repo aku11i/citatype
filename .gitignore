@@ -1,3 +1,5 @@
 node_modules/
+.screenshots/
+.vitest-attachments/
 public/tailwind.css
 public/client-components/

@@ -15,7 +15,12 @@
     "typecheck": "tsgo",
     "lint": "oxlint . && oxfmt --check .",
     "fix": "oxlint . --fix && oxfmt --write .",
-    "test": "vitest run",
+    "test": "pnpm build:css && vitest run --project node --project dom --project browser",
+    "test:core": "vitest run --project node --project dom",
+    "test:browser": "pnpm build:css && vitest run --project browser",
+    "test:visual": "pnpm build:css && vitest run --project visual",
+    "test:visual:update": "pnpm build:css && vitest run --project visual --update",
+    "capture": "pnpm run --silent test:visual:update",
     "test:setup": "playwright install",
     "ready": "pnpm fix && pnpm typecheck && pnpm test",
     "ready:check": "pnpm lint && pnpm typecheck && pnpm test"
