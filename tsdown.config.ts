@@ -7,5 +7,5 @@ export default defineConfig({
   format: "esm",
   target: "es2022",
   tsconfig: "./tsconfig.client.json",
-  noExternal: [/^hono(\/|$)/, /^typengine(\/|$)/, /^valibot(\/|$)/],
+  noExternal: ["**"],
 });
