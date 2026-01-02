@@ -1,0 +1,28 @@
+{
+  "id": "daily-conversation-en",
+  "label": "Daily Conversation",
+  "language": "en",
+  "description": "Short phrases for a calm typing session",
+  "sentences": [
+    { "id": "daily-en-001", "text": "Good morning, you are up early." },
+    { "id": "daily-en-002", "text": "Did you eat breakfast already?" },
+    { "id": "daily-en-003", "text": "Do you have a busy day today?" },
+    { "id": "daily-en-004", "text": "Can I call you later?" },
+    { "id": "daily-en-005", "text": "Please wait just a moment." },
+    { "id": "daily-en-006", "text": "What should we do for lunch?" },
+    { "id": "daily-en-007", "text": "That sounds good, I agree." },
+    { "id": "daily-en-008", "text": "Where are you right now?" },
+    { "id": "daily-en-009", "text": "It is cold today, bring a jacket." },
+    { "id": "daily-en-010", "text": "I will stop by the store on the way." },
+    { "id": "daily-en-011", "text": "Have you decided on tomorrow's plan?" },
+    { "id": "daily-en-012", "text": "Do not push too hard, get some rest." },
+    { "id": "daily-en-013", "text": "What are you doing this weekend?" },
+    { "id": "daily-en-014", "text": "It might rain, take an umbrella." },
+    { "id": "daily-en-015", "text": "Thanks for helping me." },
+    { "id": "daily-en-016", "text": "You should go to bed early." },
+    { "id": "daily-en-017", "text": "Tell me about that later." },
+    { "id": "daily-en-018", "text": "What time does the store open?" },
+    { "id": "daily-en-019", "text": "It is fine, do not worry." },
+    { "id": "daily-en-020", "text": "Where should I put this?" }
+  ]
+}

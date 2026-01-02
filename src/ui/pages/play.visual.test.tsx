@@ -1,5 +1,6 @@
 import { renderToString } from "hono/jsx/dom/server";
 import { describe, expect, it } from "vitest";
+import { dailyConversationEn } from "../../data/sentence-packs/index.js";
 import { createI18n } from "../../i18n/createI18n.js";
 import { getMessages } from "../../i18n/getMessages.js";
 import { createPageMeta } from "../../i18n/page-meta.js";
@@ -17,14 +18,8 @@ describe("PlayPage visual", () => {
     });
 
     const pack: SentencePack = {
-      id: "test-pack",
-      label: t("typingSession.packLabel"),
-      description: t("typingSession.packDescription"),
-      language: "en",
-      sentences: messages.typingSession.sentences.map((sentence, index) => ({
-        id: `test-${String(index + 1).padStart(3, "0")}`,
-        text: sentence.text,
-      })),
+      ...dailyConversationEn,
+      sentences: dailyConversationEn.sentences.slice(0, 3),
     };
 
     const markup = renderToString(
