@@ -1,14 +1,10 @@
 import "@testing-library/jest-dom/vitest";
-import { beforeAll } from "vitest";
+import { beforeEach } from "vitest";
 
-beforeAll(async () => {
-  const id = "vitest-tailwind";
-  if (document.getElementById(id)) {
-    return;
-  }
+beforeEach(async () => {
+  document.documentElement.innerHTML = "<head></head><body></body>";
 
   const link = document.createElement("link");
-  link.id = id;
   link.rel = "stylesheet";
   link.href = "/tailwind.css";
   document.head.appendChild(link);
