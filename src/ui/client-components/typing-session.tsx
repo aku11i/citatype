@@ -76,10 +76,10 @@ class TypingSession extends HTMLElement {
     const value = event.key.toLowerCase();
     const result = this.session.input(value);
     if (result.accepted) {
-      if (this.status) this.status.textContent = "";
+      this.setStatus("");
       this.updateView();
-    } else if (this.status) {
-      this.status.textContent = this.messages.statusMissed;
+    } else {
+      this.setStatus(this.messages.statusMissed);
     }
 
     if (this.session.completed) this.finishSession();
@@ -103,22 +103,22 @@ class TypingSession extends HTMLElement {
 
     if (!this.input) {
       render(
-        <div class="space-y-5">
-          <div class="rounded-2xl border border-secondary-400/50 bg-secondary-200/70 p-5 shadow-sm backdrop-blur-md">
-            <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+        <div class="space-y-8">
+          <div class="rounded-[20px] bg-bg-surface p-8">
+            <p class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary">
               {this.messages.sentenceLabel} <span data-role="index">1 / --</span>
             </p>
-            <p class="mt-3 text-lg font-semibold text-secondary-900" data-role="sentence">
+            <p class="mt-4 text-[20px] font-semibold text-text-primary" data-role="sentence">
               ...
             </p>
-            <p class="mt-3 text-sm font-medium">
-              <span class="text-secondary-900" data-role="typed"></span>
-              <span class="text-secondary-400" data-role="remaining"></span>
+            <p class="mt-4 text-sm font-medium">
+              <span class="text-accent-primary" data-role="typed"></span>
+              <span class="text-text-secondary" data-role="remaining"></span>
             </p>
           </div>
 
-          <div class="space-y-2">
-            <label class="text-sm font-medium text-secondary-700" for="typing-input">
+          <div class="space-y-4">
+            <label class="text-base font-medium text-text-secondary" for="typing-input">
               {this.messages.typeHereLabel}
             </label>
             <input
@@ -129,14 +129,18 @@ class TypingSession extends HTMLElement {
               autocapitalize="off"
               autocorrect="off"
               spellcheck={false}
-              class="w-full rounded-xl border border-secondary-400/60 bg-secondary-100/70 px-4 py-3 text-sm text-secondary-900 shadow-sm outline-none transition placeholder:text-secondary-400 focus:border-primary-400 focus:ring-2 focus:ring-primary-500/30"
+              class="w-full rounded-2xl bg-bg-disabled px-4 py-4 text-base text-text-primary outline-none transition placeholder:text-text-secondary focus-visible:ring-2 focus-visible:ring-accent-muted"
               placeholder={this.messages.placeholder}
               data-role="input"
             />
-            <p class="text-xs text-secondary-500">{this.messages.helper}</p>
+            <p class="text-sm text-text-secondary">{this.messages.helper}</p>
           </div>
 
-          <p class="text-xs text-secondary-500" data-role="status"></p>
+          <p
+            class="inline-flex items-center rounded-full bg-accent-primary px-4 py-1 text-sm font-semibold text-text-inverse"
+            data-role="status"
+            hidden
+          ></p>
         </div>,
         this,
       );
@@ -178,7 +182,7 @@ class TypingSession extends HTMLElement {
 
     const sentence = this.session.currentSentence;
     if (!sentence) {
-      if (this.status) this.status.textContent = this.messages.statusComplete;
+      this.setStatus(this.messages.statusComplete);
       return;
     }
 
@@ -213,14 +217,18 @@ class TypingSession extends HTMLElement {
       this.input.disabled = true;
     }
 
-    if (this.status) {
-      this.status.textContent = this.messages.statusRedirect;
-    }
+    this.setStatus(this.messages.statusRedirect);
 
     const form = this.closest("form");
     if (form) {
       form.requestSubmit();
     }
+  }
+
+  private setStatus(message: string) {
+    if (!this.status) return;
+    this.status.textContent = message;
+    this.status.hidden = message.length === 0;
   }
 }
 

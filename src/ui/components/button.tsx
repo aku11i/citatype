@@ -2,7 +2,7 @@ import type { FC, PropsWithChildren } from "hono/jsx";
 import { cva, type VariantProps } from "class-variance-authority";
 
 export const buttonVariants = cva(
-  "inline-flex items-center justify-center rounded-xl px-5 py-3 text-sm font-semibold transition shadow-sm focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed disabled:opacity-60",
+  "inline-flex items-center justify-center rounded-2xl px-8 py-4 text-base font-semibold transition focus-visible:outline-none focus-visible:ring-2 disabled:cursor-not-allowed",
   {
     variants: {
       variant: {
@@ -10,33 +10,32 @@ export const buttonVariants = cva(
         outline: "bg-transparent",
       },
       color: {
-        primary: "focus-visible:ring-primary-200 dark:focus-visible:ring-primary-400/40",
-        secondary: "focus-visible:ring-secondary-200 dark:focus-visible:ring-secondary-600/40",
+        primary: "focus-visible:ring-accent-muted",
+        secondary: "focus-visible:ring-accent-muted",
       },
     },
     compoundVariants: [
       {
         variant: "solid",
         color: "primary",
-        class: "bg-primary-500 text-secondary-900 hover:bg-primary-400",
+        class:
+          "bg-accent-primary text-text-inverse hover:bg-accent-muted hover:text-text-primary disabled:bg-bg-disabled disabled:text-text-disabled",
       },
       {
         variant: "solid",
         color: "secondary",
         class:
-          "bg-secondary-900 text-white hover:bg-secondary-800 dark:bg-secondary-100 dark:text-secondary-900 dark:hover:bg-white",
+          "bg-bg-selected text-text-inverse hover:bg-accent-primary disabled:bg-bg-disabled disabled:text-text-disabled",
       },
       {
         variant: "outline",
         color: "primary",
-        class:
-          "border border-primary-300 text-primary-800 hover:border-primary-400 hover:text-primary-900 dark:border-primary-500/60 dark:text-primary-200 dark:hover:text-primary-100",
+        class: "text-accent-primary hover:text-text-primary disabled:text-text-disabled",
       },
       {
         variant: "outline",
         color: "secondary",
-        class:
-          "border border-secondary-200 text-secondary-700 hover:border-secondary-300 hover:text-secondary-900 dark:border-secondary-700 dark:text-secondary-200 dark:hover:text-secondary-100",
+        class: "text-text-secondary hover:text-text-primary disabled:text-text-disabled",
       },
     ],
     defaultVariants: {

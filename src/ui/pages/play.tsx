@@ -36,19 +36,19 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
   return (
     <BaseLayout title={t("meta.playTitle")} locale={locale} meta={meta} t={t} scene="typing">
       <div class="space-y-8">
-        <header class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+        <header class="space-y-4">
+          <p class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary">
             {t("play.eyebrow")}
           </p>
-          <h1 class="text-2xl font-semibold tracking-tight text-secondary-900">
+          <h1 class="text-[32px] font-semibold tracking-tight text-text-primary">
             {t("play.title")}
           </h1>
-          <p class="text-sm text-secondary-600">
+          <p class="text-base text-text-secondary">
             {t("play.description", { count: sentenceCount, label: sentenceLabel })}
           </p>
         </header>
 
-        <form method="post" action={localizedPath(locale, "/result")} class="space-y-6">
+        <form method="post" action={localizedPath(locale, "/result")} class="space-y-8">
           <input type="hidden" name="startedAt" value={String(startedAt)} />
           <typing-session id="typing-session"></typing-session>
         </form>
@@ -57,7 +57,7 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
 
         <a
           href={localizedPath(locale, "/")}
-          class="text-sm font-medium text-secondary-500 hover:text-secondary-700"
+          class="text-sm font-medium text-text-secondary hover:text-accent-primary"
         >
           {t("play.backLink")}
         </a>

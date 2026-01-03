@@ -26,36 +26,30 @@ export const ResultPage: FC<ResultPageProps> = ({ elapsedMs, locale, t, meta }) 
   return (
     <BaseLayout title={t("meta.resultTitle")} locale={locale} meta={meta} t={t}>
       <div class="space-y-8">
-        <header class="space-y-2">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+        <header class="space-y-4">
+          <p class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary">
             {t("result.eyebrow")}
           </p>
-          <h1 class="text-2xl font-semibold tracking-tight text-secondary-900">
+          <h1 class="text-[32px] font-semibold tracking-tight text-text-primary">
             {t("result.title")}
           </h1>
-          <p class="text-sm text-secondary-600">{t("result.description")}</p>
+          <p class="text-base text-text-secondary">{t("result.description")}</p>
         </header>
 
-        <section class="rounded-2xl border border-secondary-200 bg-white p-6 shadow-sm">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+        <section class="rounded-[20px] bg-bg-surface p-8">
+          <p class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary">
             {t("result.cardLabel")}
           </p>
-          <p class="mt-3 text-4xl font-semibold text-secondary-900">
+          <p class="mt-4 text-[56px] font-semibold leading-none text-text-primary">
             {formatElapsed(elapsedMs, t)}
           </p>
         </section>
 
-        <div class="flex flex-wrap gap-3">
-          <Button as="a" href={localizedPath(locale, "/play")} class="px-6">
+        <div class="flex flex-wrap gap-4">
+          <Button as="a" href={localizedPath(locale, "/play")}>
             {t("result.primaryCta")}
           </Button>
-          <Button
-            as="a"
-            href={localizedPath(locale, "/")}
-            variant="outline"
-            color="secondary"
-            class="px-6"
-          >
+          <Button as="a" href={localizedPath(locale, "/")} variant="outline" color="secondary">
             {t("result.secondaryCta")}
           </Button>
         </div>

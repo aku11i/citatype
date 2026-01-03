@@ -13,7 +13,7 @@ type BaseLayoutProps = PropsWithChildren<{
 }>;
 
 export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene, children }) => {
-  const bodyClass = "min-h-screen font-sans text-secondary-900";
+  const bodyClass = "min-h-screen font-sans text-text-primary";
 
   return (
     <html lang={locale}>
@@ -27,7 +27,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene,
         <title>{title}</title>
       </head>
       <body class={bodyClass} data-scene={scene}>
-        <main class="mx-auto max-w-3xl px-6 py-10">
+        <main class="mx-auto max-w-3xl px-8 py-12">
           <div class="mb-8 flex justify-end">
             <LanguageSwitcher
               locale={locale}
