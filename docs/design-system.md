@@ -1,10 +1,12 @@
-# Citatype Design System
+# Focus Island Design
 
 ## Overview
 
 This design system is built around **calmness, accuracy, and clarity of interaction**.
-The interface avoids excessive decoration and expresses information hierarchy through
-**color, spacing, and typography**, rather than borders or visual effects.
+The main content is presented as a **white card that feels gently lifted**, while
+surrounding areas (header, footer, sidebar) blend into the background to avoid
+competing for attention. Information hierarchy is expressed through **color, spacing,
+and typography**, rather than borders or visual effects.
 
 ### Design Keywords
 
@@ -13,6 +15,8 @@ The interface avoids excessive decoration and expresses information hierarchy th
 - Clear
 - Neutral
 - Error-resistant
+- Focused
+- Floating
 
 ---
 
