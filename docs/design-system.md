@@ -45,10 +45,10 @@ The interface avoids excessive decoration and expresses information hierarchy th
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#F4F5F4` | App background            |
+| `color-bg-primary`  | `#F3F5F7` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
-| `color-bg-disabled` | `#E6E7E6` | Disabled state            |
+| `color-bg-disabled` | `#E5E8EB` | Disabled state            |
 
 ---
 
@@ -56,9 +56,9 @@ The interface avoids excessive decoration and expresses information hierarchy th
 
 | Token                    | Hex       | Usage                     |
 | ------------------------ | --------- | ------------------------- |
-| `color-accent-primary`   | `#B6522A` | Active value / state      |
-| `color-accent-muted`     | `#E3A08A` | Secondary emphasis        |
-| `color-accent-indicator` | `#B6522A` | Scroll position indicator |
+| `color-accent-primary`   | `#C24911` | Active value / state      |
+| `color-accent-muted`     | `#F5B59B` | Secondary emphasis        |
+| `color-accent-indicator` | `#C24911` | Scroll position indicator |
 
 > Accent colors exist **only** to indicate focus, state, or the current interaction target.
 

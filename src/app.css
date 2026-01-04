@@ -4,14 +4,14 @@
   --font-sans:
     "IBM Plex Sans", "Source Sans 3", "Work Sans", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
 
-  --color-bg-primary: #f4f5f4;
+  --color-bg-primary: #f3f5f7;
   --color-bg-surface: #ffffff;
   --color-bg-selected: #6b6b6b;
-  --color-bg-disabled: #e6e7e6;
+  --color-bg-disabled: #e5e8eb;
 
-  --color-accent-primary: #b6522a;
-  --color-accent-muted: #e3a08a;
-  --color-accent-indicator: #b6522a;
+  --color-accent-primary: #c24911;
+  --color-accent-muted: #f5b59b;
+  --color-accent-indicator: #c24911;
 
   --color-text-primary: #2e2e2e;
   --color-text-secondary: #707070;
