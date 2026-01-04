@@ -15,19 +15,19 @@ const label = {
 describe("Button visual", () => {
   it("matches the variants and colors", async () => {
     const markup = renderToString(
-      <div class="min-h-screen bg-secondary-50 px-8 py-10 text-secondary-900">
+      <div class="min-h-screen bg-bg-primary px-8 py-10 text-text-primary">
         <header class="space-y-1">
-          <p class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+          <p class="text-sm font-semibold uppercase tracking-[0.2em] text-text-secondary">
             Components
           </p>
           <h1 class="text-2xl font-semibold tracking-tight">Button</h1>
-          <p class="text-sm text-secondary-600">
+          <p class="text-sm text-text-secondary">
             Variant and color matrix for the base button component.
           </p>
         </header>
 
-        <div class="mt-8 space-y-5">
-          <div class="grid grid-cols-[120px_repeat(2,minmax(0,1fr))] gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-secondary-400">
+        <div class="mt-8 space-y-4">
+          <div class="grid grid-cols-[120px_repeat(2,minmax(0,1fr))] gap-4 text-sm font-semibold uppercase tracking-[0.2em] text-text-secondary">
             <span></span>
             {variants.map((variant) => (
               <span>{label[variant]}</span>
@@ -35,7 +35,7 @@ describe("Button visual", () => {
           </div>
           {colors.map((color) => (
             <div class="grid grid-cols-[120px_repeat(2,minmax(0,1fr))] items-center gap-4">
-              <span class="text-xs font-semibold uppercase tracking-[0.2em] text-secondary-500">
+              <span class="text-sm font-semibold uppercase tracking-[0.2em] text-text-secondary">
                 {label[color]}
               </span>
               {variants.map((variant) => (

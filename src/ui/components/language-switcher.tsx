@@ -10,23 +10,21 @@ export type LanguageSwitcherProps = {
   options: Array<{ locale: Locale; label: string }>;
 };
 
-const switcherRoot = cva("flex items-center gap-3 text-xs");
+const switcherRoot = cva("flex items-center gap-4");
 
-const switcherLabel = cva(
-  "text-[0.65rem] font-semibold uppercase tracking-[0.2em] text-secondary-400",
-);
+const switcherLabel = cva("text-sm font-semibold uppercase tracking-[0.2em] text-text-secondary");
 
 const switcherContainer = cva(
-  "inline-flex items-center rounded-full border border-secondary-200 bg-white/80 p-1 text-secondary-600 shadow-sm backdrop-blur",
+  "inline-flex items-center rounded-full bg-bg-disabled p-1 text-text-secondary",
 );
 
 const switcherOption = cva(
-  "rounded-full px-3 py-1 text-xs font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-200",
+  "rounded-full px-3 py-1 text-sm font-semibold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-muted",
   {
     variants: {
       tone: {
-        active: "bg-secondary-900 text-white shadow-sm",
-        inactive: "text-secondary-500 hover:text-secondary-700",
+        active: "bg-bg-selected text-text-inverse",
+        inactive: "text-text-secondary hover:text-text-primary",
       },
     },
     defaultVariants: {

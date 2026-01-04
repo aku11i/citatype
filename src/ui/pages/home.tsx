@@ -13,25 +13,26 @@ type HomePageProps = {
 };
 
 export const HomePage: FC<HomePageProps> = ({ locale, t, meta }) => {
+  const helperText = t("home.helper");
+  const showHelper = helperText.trim().length > 0;
+
   return (
     <BaseLayout title={t("meta.homeTitle")} locale={locale} meta={meta} t={t} scene="calm">
       <section>
-        <div class="relative flex min-h-[60vh] flex-col justify-center gap-10 py-8">
+        <div class="relative flex min-h-[60vh] flex-col justify-center gap-12 py-8">
           <header class="max-w-xl space-y-4">
-            <p class="text-xs font-semibold uppercase tracking-[0.28em] text-secondary-400">
-              {t("home.eyebrow")}
-            </p>
-            <h1 class="text-3xl font-semibold tracking-tight text-secondary-900 sm:text-4xl">
-              {t("home.title")}
+            <h1 class="text-[40px] font-semibold leading-snug tracking-tight text-text-primary sm:text-[56px]">
+              <span class="block">{t("home.titleLine1")}</span>{" "}
+              <span class="block whitespace-nowrap">{t("home.titleLine2")}</span>
             </h1>
-            <p class="text-base text-secondary-600">{t("home.description")}</p>
+            <p class="text-base text-text-secondary">{t("home.description")}</p>
           </header>
 
-          <div class="space-y-3">
-            <Button as="a" href={localizedPath(locale, "/play")} class="px-7">
+          <div class="space-y-4">
+            <Button as="a" href={localizedPath(locale, "/play")}>
               {t("home.cta")}
             </Button>
-            <p class="text-xs text-secondary-500">{t("home.helper")}</p>
+            {showHelper ? <p class="text-sm text-text-secondary">{helperText}</p> : null}
           </div>
         </div>
       </section>

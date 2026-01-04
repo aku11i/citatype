@@ -34,7 +34,7 @@ export const createI18n = (params: { locale: Locale; messages: Messages }) => {
 
   const t: Translate = (key, vars) => {
     const value = getMessageValue(messages, key);
-    if (!value) return key;
+    if (value === null) return "";
 
     return interpolate(value, vars);
   };

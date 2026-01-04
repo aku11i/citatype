@@ -16,11 +16,11 @@ export const messages = {
     resultTitle: "Result | Citatype",
   },
   home: {
-    eyebrow: "Calm Typing",
-    title: "Citatype",
-    description: "A quiet typing session for relaxation, not practice.",
+    titleLine1: "Just type.",
+    titleLine2: "Feel the keys.",
+    description: "A pure typing experience for keyboard nerds.",
     cta: "START",
-    helper: "No setup. Just begin.",
+    helper: "",
   },
   play: {
     eyebrow: "Session",
