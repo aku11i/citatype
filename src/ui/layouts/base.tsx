@@ -15,6 +15,11 @@ type BaseLayoutProps = PropsWithChildren<{
 
 export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene, children }) => {
   const bodyClass = "min-h-screen font-sans text-text-primary";
+  const isTyping = scene === "typing";
+  const mainClass = isTyping ? "mx-auto max-w-4xl px-6 py-8" : "mx-auto max-w-4xl px-6 py-12";
+  const headerClass = isTyping
+    ? "mb-4 flex items-center justify-between"
+    : "mb-8 flex items-center justify-between";
 
   return (
     <html lang={locale}>
@@ -28,8 +33,8 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene,
         <title>{title}</title>
       </head>
       <body class={bodyClass} data-scene={scene}>
-        <main class="mx-auto max-w-4xl px-6 py-12">
-          <div class="mb-8 flex items-center justify-between">
+        <main class={mainClass}>
+          <div class={headerClass}>
             <a
               class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary"
               href={localizedPath(locale, "/")}
