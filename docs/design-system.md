@@ -4,9 +4,9 @@
 
 This design system is built around **calmness, accuracy, and clarity of interaction**.
 The main content is presented as a **white card that feels gently lifted**, while
-surrounding areas (header, footer, sidebar) blend into the background to avoid
-competing for attention. Information hierarchy is expressed through **color, spacing,
-and typography**, rather than borders or visual effects.
+surrounding areas (header, footer, sidebar) blend into a **cool stone-gray background**
+to avoid competing for attention. Information hierarchy is expressed through **color,
+spacing, and typography**, rather than borders or visual effects.
 
 ### Design Keywords
 
@@ -49,7 +49,7 @@ and typography**, rather than borders or visual effects.
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#F4F5F4` | App background            |
+| `color-bg-primary`  | `#E1E3E4` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
 | `color-bg-disabled` | `#E6E7E6` | Disabled state            |
