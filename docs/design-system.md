@@ -12,6 +12,8 @@ The interface avoids excessive decoration and expresses information hierarchy th
 - Minimal
 - Clear
 - Neutral
+- Inorganic
+- Gadget-like
 - Error-resistant
 
 ---
@@ -45,7 +47,7 @@ The interface avoids excessive decoration and expresses information hierarchy th
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#F4F5F4` | App background            |
+| `color-bg-primary`  | `#EEF1F6` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
 | `color-bg-disabled` | `#E6E7E6` | Disabled state            |
@@ -56,9 +58,9 @@ The interface avoids excessive decoration and expresses information hierarchy th
 
 | Token                    | Hex       | Usage                     |
 | ------------------------ | --------- | ------------------------- |
-| `color-accent-primary`   | `#B6522A` | Active value / state      |
+| `color-accent-primary`   | `#B84A18` | Active value / state      |
 | `color-accent-muted`     | `#E3A08A` | Secondary emphasis        |
-| `color-accent-indicator` | `#B6522A` | Scroll position indicator |
+| `color-accent-indicator` | `#B84A18` | Scroll position indicator |
 
 > Accent colors exist **only** to indicate focus, state, or the current interaction target.
 
@@ -69,7 +71,7 @@ The interface avoids excessive decoration and expresses information hierarchy th
 | Token                  | Hex       | Usage                     |
 | ---------------------- | --------- | ------------------------- |
 | `color-text-primary`   | `#2E2E2E` | Primary text              |
-| `color-text-secondary` | `#707070` | Labels and secondary text |
+| `color-text-secondary` | `#656B73` | Labels and secondary text |
 | `color-text-disabled`  | `#BDBDBD` | Disabled text             |
 | `color-text-inverse`   | `#FFFFFF` | Text on dark backgrounds  |
 
