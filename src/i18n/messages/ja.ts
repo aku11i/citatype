@@ -11,7 +11,6 @@ export const messages: Messages = {
     titleLine2: "Feel the keys.",
     description: "キーボード愛好家のための純粋な打鍵体験。",
     cta: "開始",
-    helper: "",
   },
   play: {
     eyebrow: "セッション",

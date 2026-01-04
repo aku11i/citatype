@@ -3,6 +3,22 @@ export type TypingSentence = {
   reading?: string;
 };
 
+type StringLeafPaths<T> = T extends string
+  ? never
+  : T extends readonly unknown[]
+    ? never
+    : T extends Record<string, unknown>
+      ? {
+          [K in Extract<keyof T, string>]: T[K] extends string
+            ? K
+            : T[K] extends readonly unknown[]
+              ? never
+              : T[K] extends Record<string, unknown>
+                ? `${K}.${StringLeafPaths<T[K]>}`
+                : never;
+        }[Extract<keyof T, string>]
+      : never;
+
 const typingSentences: TypingSentence[] = [
   { text: "citatype is a simple typing app" },
   { text: "type three sentences to finish" },
@@ -20,7 +36,6 @@ export const messages = {
     titleLine2: "Feel the keys.",
     description: "A pure typing experience for keyboard nerds.",
     cta: "START",
-    helper: "",
   },
   play: {
     eyebrow: "Session",
@@ -61,3 +76,4 @@ export const messages = {
 };
 
 export type Messages = typeof messages;
+export type MessageKey = StringLeafPaths<Messages>;

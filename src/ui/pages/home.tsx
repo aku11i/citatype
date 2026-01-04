@@ -13,9 +13,6 @@ type HomePageProps = {
 };
 
 export const HomePage: FC<HomePageProps> = ({ locale, t, meta }) => {
-  const helperText = t("home.helper");
-  const showHelper = helperText.trim().length > 0;
-
   return (
     <BaseLayout title={t("meta.homeTitle")} locale={locale} meta={meta} t={t} scene="calm">
       <section>
@@ -32,7 +29,6 @@ export const HomePage: FC<HomePageProps> = ({ locale, t, meta }) => {
             <Button as="a" href={localizedPath(locale, "/play")}>
               {t("home.cta")}
             </Button>
-            {showHelper ? <p class="text-sm text-text-secondary">{helperText}</p> : null}
           </div>
         </div>
       </section>
