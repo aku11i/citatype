@@ -46,6 +46,7 @@ describe("PlayPage browser", () => {
       typeHereLabel: t("typingSession.typeHereLabel"),
       placeholder: t("typingSession.placeholder"),
       helper: t("typingSession.helper"),
+      focusHint: t("typingSession.focusHint"),
       statusMissed: t("typingSession.statusMissed"),
       statusComplete: t("typingSession.statusComplete"),
       statusRedirect: t("typingSession.statusRedirect"),
