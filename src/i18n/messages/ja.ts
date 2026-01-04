@@ -7,11 +7,11 @@ export const messages: Messages = {
     resultTitle: "結果 | Citatype",
   },
   home: {
-    eyebrow: "落ち着いたタイピング",
-    title: "Citatype",
-    description: "練習ではなく、リラックスのための静かなタイピング。",
+    titleLine1: "Just type.",
+    titleLine2: "Feel the keys.",
+    description: "キーボード愛好家のための純粋な打鍵体験。",
     cta: "開始",
-    helper: "準備はいりません。すぐに始められます。",
+    helper: "",
   },
   play: {
     eyebrow: "セッション",

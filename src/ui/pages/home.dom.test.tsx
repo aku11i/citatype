@@ -39,7 +39,7 @@ describe("HomePage", () => {
     const { HomePage } = await import("./home.js");
     render(<HomePage {...createPageProps()} />, document.body);
 
-    const heading = getByRole(document.body, "heading", { name: "Citatype" });
+    const heading = getByRole(document.body, "heading", { name: "Just type. Feel the keys." });
     const link = getByRole(document.body, "link", { name: "START" });
 
     expect(heading).toBeInTheDocument();

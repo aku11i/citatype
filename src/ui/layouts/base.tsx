@@ -2,6 +2,7 @@ import type { FC, PropsWithChildren } from "hono/jsx";
 import type { Translate } from "../../i18n/createI18n.js";
 import type { Locale } from "../../i18n/locales.js";
 import type { PageMeta } from "../../i18n/page-meta.js";
+import { localizedPath } from "../../i18n/paths.js";
 import { LanguageSwitcher } from "../components/language-switcher.js";
 
 type BaseLayoutProps = PropsWithChildren<{
@@ -27,8 +28,14 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene,
         <title>{title}</title>
       </head>
       <body class={bodyClass} data-scene={scene}>
-        <main class="mx-auto max-w-3xl px-8 py-12">
-          <div class="mb-8 flex justify-end">
+        <main class="mx-auto max-w-4xl px-6 py-12">
+          <div class="mb-8 flex items-center justify-between">
+            <a
+              class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary"
+              href={localizedPath(locale, "/")}
+            >
+              Citatype
+            </a>
             <LanguageSwitcher
               locale={locale}
               path={meta.path}
