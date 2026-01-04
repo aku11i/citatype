@@ -31,7 +31,7 @@
     "@hono/standard-validator": "^0.2.1",
     "class-variance-authority": "^0.7.1",
     "hono": "^4.11.3",
-    "typengine": "^0.0.4",
+    "typengine": "^0.0.5",
     "valibot": "^1.2.0"
   },
   "devDependencies": {
