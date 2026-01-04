@@ -1,7 +1,7 @@
-import type { Messages } from "./messages/en.js";
+import type { MessageKey, Messages } from "./messages/en.js";
 import type { Locale } from "./locales.js";
 
-export type Translate = (key: string, vars?: Record<string, string | number>) => string;
+export type Translate = (key: MessageKey, vars?: Record<string, string | number>) => string;
 
 const interpolate = (template: string, vars?: Record<string, string | number>) => {
   if (!vars) return template;
@@ -14,7 +14,7 @@ const interpolate = (template: string, vars?: Record<string, string | number>) =
   });
 };
 
-const getMessageValue = (messages: Messages, key: string): string | null => {
+const getMessageValue = (messages: Messages, key: MessageKey): string | null => {
   const parts = key.split(".");
   let current: unknown = messages;
 
