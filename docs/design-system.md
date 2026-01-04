@@ -47,7 +47,7 @@ The interface avoids excessive decoration and expresses information hierarchy th
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#EEF1F6` | App background            |
+| `color-bg-primary`  | `#F1F2F3` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
 | `color-bg-disabled` | `#E6E7E6` | Disabled state            |
