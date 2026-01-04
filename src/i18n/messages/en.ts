@@ -42,6 +42,9 @@ export const messages = {
     title: "Play",
     description:
       "Type {count} {label} in order. When you finish, the result page will open automatically.",
+    statsElapsedLabel: "Elapsed",
+    statsSentencesLabel: "Sentences",
+    statsPackLabel: "Pack",
     sentenceLabel: "sentence",
     sentencesLabel: "sentences",
     backLink: "Back to home",
