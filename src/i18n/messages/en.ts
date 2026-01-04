@@ -62,6 +62,7 @@ export const messages = {
     typeHereLabel: "Type here",
     placeholder: "Start typing...",
     helper: "Type exactly as shown. Backspace is not supported.",
+    focusHint: "Focus lost. Click here to resume typing.",
     statusMissed: "Missed key. Keep going.",
     statusComplete: "Session complete.",
     statusRedirect: "Session complete. Redirecting to result...",

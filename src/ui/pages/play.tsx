@@ -27,6 +27,7 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
       typeHereLabel: t("typingSession.typeHereLabel"),
       placeholder: t("typingSession.placeholder"),
       helper: t("typingSession.helper"),
+      focusHint: t("typingSession.focusHint"),
       statusMissed: t("typingSession.statusMissed"),
       statusComplete: t("typingSession.statusComplete"),
       statusRedirect: t("typingSession.statusRedirect"),

@@ -36,6 +36,7 @@ export const messages: Messages = {
     typeHereLabel: "ここに入力",
     placeholder: "入力を開始...",
     helper: "表示された通りに入力してください。バックスペースは使えません。",
+    focusHint: "フォーカスが外れました。ここをクリックして入力を再開してください。",
     statusMissed: "入力が違います。続けてください。",
     statusComplete: "セッション完了。",
     statusRedirect: "セッション完了。結果ページへ移動します...",

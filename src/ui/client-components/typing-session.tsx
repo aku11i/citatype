@@ -12,6 +12,7 @@ export type TypingSessionMessages = {
   typeHereLabel: string;
   placeholder: string;
   helper: string;
+  focusHint: string;
   statusMissed: string;
   statusComplete: string;
   statusRedirect: string;
@@ -29,6 +30,9 @@ class TypingSession extends HTMLElement {
   private sentenceProgress: HTMLElement | null = null;
   private sentenceRemaining: HTMLElement | null = null;
   private sentenceIndex: HTMLElement | null = null;
+  private sentencePanel: HTMLElement | null = null;
+  private sentenceProgressLine: HTMLElement | null = null;
+  private focusHint: HTMLElement | null = null;
   private status: HTMLElement | null = null;
   private finished = false;
   private dataState: TypingSessionData | null = null;
@@ -64,6 +68,13 @@ class TypingSession extends HTMLElement {
   private handleKeyDown = (event: KeyboardEvent) => {
     if (!this.session || this.session.completed) return;
 
+    if (event.key === "Escape") {
+      if (event.metaKey || event.ctrlKey || event.altKey || event.shiftKey) return;
+      event.preventDefault();
+      this.input?.blur();
+      return;
+    }
+
     if (event.key === "Enter") {
       event.preventDefault();
       return;
@@ -85,14 +96,34 @@ class TypingSession extends HTMLElement {
     if (this.session.completed) this.finishSession();
   };
 
+  private handleSentenceClick = () => {
+    if (!this.input || this.input.disabled) return;
+    this.input.focus();
+  };
+
+  private handleFocus = () => {
+    this.setFocusState(true);
+  };
+
+  private handleBlur = () => {
+    this.setFocusState(false);
+  };
+
   connectedCallback() {
     this.initialize();
     this.input?.addEventListener("keydown", this.handleKeyDown);
+    this.input?.addEventListener("focus", this.handleFocus);
+    this.input?.addEventListener("blur", this.handleBlur);
+    this.sentencePanel?.addEventListener("click", this.handleSentenceClick);
     this.input?.focus();
+    this.setFocusState(document.activeElement === this.input);
   }
 
   disconnectedCallback() {
     this.input?.removeEventListener("keydown", this.handleKeyDown);
+    this.input?.removeEventListener("focus", this.handleFocus);
+    this.input?.removeEventListener("blur", this.handleBlur);
+    this.sentencePanel?.removeEventListener("click", this.handleSentenceClick);
   }
 
   private initialize() {
@@ -104,20 +135,23 @@ class TypingSession extends HTMLElement {
     if (!this.input) {
       render(
         <div class="space-y-8">
-          <div class="rounded-[20px] bg-bg-surface p-8">
+          <div class="cursor-pointer rounded-[20px] bg-bg-surface p-8" data-role="sentence-panel">
             <p class="text-sm font-semibold uppercase tracking-[0.28em] text-text-secondary">
               {this.messages.sentenceLabel} <span data-role="index">1 / --</span>
             </p>
             <p class="mt-4 text-[20px] font-semibold text-text-primary" data-role="sentence">
               ...
             </p>
-            <p class="mt-4 text-sm font-medium">
+            <p class="mt-4 text-sm font-medium" data-role="progress">
               <span class="text-accent-primary" data-role="typed"></span>
               <span class="text-text-secondary" data-role="remaining"></span>
             </p>
+            <p class="mt-4 text-sm font-semibold text-text-secondary" data-role="focus-hint" hidden>
+              {this.messages.focusHint}
+            </p>
           </div>
 
-          <div class="space-y-4">
+          <div class="sr-only space-y-4">
             <label class="text-base font-medium text-text-secondary" for="typing-input">
               {this.messages.typeHereLabel}
             </label>
@@ -150,6 +184,9 @@ class TypingSession extends HTMLElement {
       this.sentenceProgress = this.querySelector('[data-role="typed"]');
       this.sentenceRemaining = this.querySelector('[data-role="remaining"]');
       this.sentenceIndex = this.querySelector('[data-role="index"]');
+      this.sentencePanel = this.querySelector('[data-role="sentence-panel"]');
+      this.sentenceProgressLine = this.querySelector('[data-role="progress"]');
+      this.focusHint = this.querySelector('[data-role="focus-hint"]');
       this.status = this.querySelector('[data-role="status"]');
     }
 
@@ -217,6 +254,7 @@ class TypingSession extends HTMLElement {
       this.input.disabled = true;
     }
 
+    this.setFocusState(true);
     this.setStatus(this.messages.statusRedirect);
 
     const form = this.closest("form");
@@ -229,6 +267,15 @@ class TypingSession extends HTMLElement {
     if (!this.status) return;
     this.status.textContent = message;
     this.status.hidden = message.length === 0;
+  }
+
+  private setFocusState(isFocused: boolean) {
+    if (this.focusHint) {
+      this.focusHint.hidden = isFocused;
+    }
+    if (this.sentenceProgressLine) {
+      this.sentenceProgressLine.hidden = !isFocused;
+    }
   }
 }
 
