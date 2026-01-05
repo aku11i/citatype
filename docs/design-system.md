@@ -3,7 +3,7 @@
 ## Overview
 
 This design system is built around **calmness, accuracy, and clarity of interaction**.
-The main content is presented as a **white card that feels gently lifted**, while
+The main content is presented as a **white card that stands out clearly**, while
 surrounding areas (header, footer, sidebar) blend into a **soft neutral-gray background**
 to avoid competing for attention. Information hierarchy is expressed through **color,
 spacing, and typography**, rather than borders or visual effects.
@@ -16,7 +16,6 @@ spacing, and typography**, rather than borders or visual effects.
 - Neutral
 - Error-resistant
 - Focused
-- Floating
 
 ---
 
