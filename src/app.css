@@ -4,17 +4,17 @@
   --font-sans:
     "IBM Plex Sans", "Source Sans 3", "Work Sans", "Noto Sans", "Helvetica Neue", Arial, sans-serif;
 
-  --color-bg-primary: #f4f5f4;
+  --color-bg-primary: #ededed;
   --color-bg-surface: #ffffff;
   --color-bg-selected: #6b6b6b;
   --color-bg-disabled: #e6e7e6;
 
-  --color-accent-primary: #b6522a;
+  --color-accent-primary: #ac442a;
   --color-accent-muted: #e3a08a;
-  --color-accent-indicator: #b6522a;
+  --color-accent-indicator: #ac442a;
 
   --color-text-primary: #2e2e2e;
-  --color-text-secondary: #707070;
+  --color-text-secondary: #686868;
   --color-text-disabled: #bdbdbd;
   --color-text-inverse: #ffffff;
 }
