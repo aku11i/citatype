@@ -18,7 +18,7 @@ type ColorCandidate = {
 
 const currentAccent: ColorCandidate = {
   name: "Current Accent (Orange)",
-  hex: "#B6522A",
+  hex: "#AC442A",
   note: "Baseline accent for comparison.",
 };
 

@@ -60,7 +60,7 @@ export const messages: Messages = {
     eyebrow: "Design Lab",
     title: "プライマリカラー確認",
     description:
-      "明るいニュートラル背景と白いカード上で、プライマリボタンの色を比較するための一時ページです。",
+      "柔らかいニュートラル背景と白いカード上で、プライマリボタンの色を比較するための一時ページです。",
     sectionLabel: "プライマリボタン",
     buttonLabel: "プライマリボタン",
     groupWarm: "暖色・アース",
