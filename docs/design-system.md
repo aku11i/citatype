@@ -49,7 +49,7 @@ spacing, and typography**, rather than borders or visual effects.
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#E9EAEB` | App background            |
+| `color-bg-primary`  | `#ECECED` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
 | `color-bg-disabled` | `#E6E7E6` | Disabled state            |
