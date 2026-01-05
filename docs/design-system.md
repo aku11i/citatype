@@ -4,7 +4,7 @@
 
 This design system is built around **calmness, accuracy, and clarity of interaction**.
 The main content is presented as a **white card that feels gently lifted**, while
-surrounding areas (header, footer, sidebar) blend into a **cool stone-gray background**
+surrounding areas (header, footer, sidebar) blend into a **light neutral-gray background**
 to avoid competing for attention. Information hierarchy is expressed through **color,
 spacing, and typography**, rather than borders or visual effects.
 
@@ -49,7 +49,7 @@ spacing, and typography**, rather than borders or visual effects.
 
 | Token               | Hex       | Usage                     |
 | ------------------- | --------- | ------------------------- |
-| `color-bg-primary`  | `#E1E3E4` | App background            |
+| `color-bg-primary`  | `#F4F5F4` | App background            |
 | `color-bg-surface`  | `#FFFFFF` | Primary display card only |
 | `color-bg-selected` | `#6B6B6B` | Selected state background |
 | `color-bg-disabled` | `#E6E7E6` | Disabled state            |
@@ -60,9 +60,9 @@ spacing, and typography**, rather than borders or visual effects.
 
 | Token                    | Hex       | Usage                     |
 | ------------------------ | --------- | ------------------------- |
-| `color-accent-primary`   | `#AC442A` | Active value / state      |
+| `color-accent-primary`   | `#B6522A` | Active value / state      |
 | `color-accent-muted`     | `#E3A08A` | Secondary emphasis        |
-| `color-accent-indicator` | `#AC442A` | Scroll position indicator |
+| `color-accent-indicator` | `#B6522A` | Scroll position indicator |
 
 > Accent colors exist **only** to indicate focus, state, or the current interaction target.
 
@@ -73,7 +73,7 @@ spacing, and typography**, rather than borders or visual effects.
 | Token                  | Hex       | Usage                     |
 | ---------------------- | --------- | ------------------------- |
 | `color-text-primary`   | `#2E2E2E` | Primary text              |
-| `color-text-secondary` | `#656565` | Labels and secondary text |
+| `color-text-secondary` | `#707070` | Labels and secondary text |
 | `color-text-disabled`  | `#BDBDBD` | Disabled text             |
 | `color-text-inverse`   | `#FFFFFF` | Text on dark backgrounds  |
 

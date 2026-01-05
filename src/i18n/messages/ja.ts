@@ -60,8 +60,10 @@ export const messages: Messages = {
     eyebrow: "Design Lab",
     title: "プライマリカラー確認",
     description:
-      "Focus Islandの背景と白いカード上で、プライマリボタンの色を比較するための一時ページです。",
+      "明るいニュートラル背景と白いカード上で、プライマリボタンの色を比較するための一時ページです。",
     sectionLabel: "プライマリボタン",
     buttonLabel: "プライマリボタン",
+    groupWarm: "暖色・アース",
+    groupCool: "寒色・テクニカル",
   },
 };

@@ -82,9 +82,11 @@ export const messages = {
     eyebrow: "Design Lab",
     title: "Primary Color Review",
     description:
-      "Temporary page to compare primary button colors against the Focus Island background and white card.",
+      "Temporary page to compare primary button colors against the light neutral background and white card.",
     sectionLabel: "Primary Button",
     buttonLabel: "Primary Button",
+    groupWarm: "Warm + Earth",
+    groupCool: "Cool + Technical",
   },
 };
 
