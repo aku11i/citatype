@@ -60,9 +60,9 @@ spacing, and typography**, rather than borders or visual effects.
 
 | Token                    | Hex       | Usage                     |
 | ------------------------ | --------- | ------------------------- |
-| `color-accent-primary`   | `#C95D2D` | Active value / state      |
+| `color-accent-primary`   | `#AC442A` | Active value / state      |
 | `color-accent-muted`     | `#E3A08A` | Secondary emphasis        |
-| `color-accent-indicator` | `#C95D2D` | Scroll position indicator |
+| `color-accent-indicator` | `#AC442A` | Scroll position indicator |
 
 > Accent colors exist **only** to indicate focus, state, or the current interaction target.
 
@@ -73,7 +73,7 @@ spacing, and typography**, rather than borders or visual effects.
 | Token                  | Hex       | Usage                     |
 | ---------------------- | --------- | ------------------------- |
 | `color-text-primary`   | `#2E2E2E` | Primary text              |
-| `color-text-secondary` | `#707070` | Labels and secondary text |
+| `color-text-secondary` | `#656565` | Labels and secondary text |
 | `color-text-disabled`  | `#BDBDBD` | Disabled text             |
 | `color-text-inverse`   | `#FFFFFF` | Text on dark backgrounds  |
 

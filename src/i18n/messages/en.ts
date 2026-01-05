@@ -30,6 +30,7 @@ export const messages = {
     homeTitle: "Citatype",
     playTitle: "Play | Citatype",
     resultTitle: "Result | Citatype",
+    paletteTitle: "Primary Colors | Citatype",
   },
   home: {
     titleLine1: "Just type.",
@@ -76,6 +77,14 @@ export const messages = {
     label: "Language",
     ja: "日本語",
     en: "English",
+  },
+  palette: {
+    eyebrow: "Design Lab",
+    title: "Primary Color Review",
+    description:
+      "Temporary page to compare primary button colors against the Focus Island background and white card.",
+    sectionLabel: "Primary Button",
+    buttonLabel: "Primary Button",
   },
 };
 
