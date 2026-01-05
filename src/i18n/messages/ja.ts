@@ -5,7 +5,6 @@ export const messages: Messages = {
     homeTitle: "Citatype",
     playTitle: "プレイ | Citatype",
     resultTitle: "結果 | Citatype",
-    paletteTitle: "プライマリカラー | Citatype",
   },
   home: {
     titleLine1: "Just type.",
@@ -55,15 +54,5 @@ export const messages: Messages = {
     label: "言語",
     ja: "日本語",
     en: "English",
-  },
-  palette: {
-    eyebrow: "Design Lab",
-    title: "プライマリカラー確認",
-    description:
-      "柔らかいニュートラル背景と白いカード上で、プライマリボタンの色を比較するための一時ページです。",
-    sectionLabel: "プライマリボタン",
-    buttonLabel: "プライマリボタン",
-    groupWarm: "暖色・アース",
-    groupCool: "寒色・テクニカル",
   },
 };
