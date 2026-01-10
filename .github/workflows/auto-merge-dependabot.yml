@@ -24,6 +24,19 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Approve PR if review required (minor/patch only)
+        if: |
+          (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
+            steps.metadata.outputs.update-type == 'version-update:semver-patch')
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+        run: |
+          needs_review=$(gh pr view "$PR_NUMBER" --json reviewDecision --jq '.reviewDecision == "REVIEW_REQUIRED"')
+          if [ "$needs_review" = "true" ]; then
+            gh pr review "$PR_NUMBER" --approve --body "Auto-approve Dependabot minor/patch update."
+          fi
+
       - name: Enable auto-merge (squash, minor/patch only)
         if: |
           (steps.metadata.outputs.update-type == 'version-update:semver-minor' ||
