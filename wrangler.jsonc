@@ -4,9 +4,9 @@
   "main": "./dist/index.js",
   "compatibility_date": "2025-01-01",
   "vars": {
-    "ENVIRONMENT": "local"
+    "ENVIRONMENT": "local",
   },
   "assets": {
-    "directory": "./dist"
-  }
+    "directory": "./dist",
+  },
 }

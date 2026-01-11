@@ -61,9 +61,6 @@ export const PlayPage: FC<PlayPageProps> = ({ startedAt, locale, t, meta, pack }
         >
           {t("play.backLink")}
         </a>
-
-        <script type="module" src="/client-components/typing-session.js"></script>
-        <script type="module" src="/client-components/elapsed-timer.js"></script>
       </div>
     </BaseLayout>
   );

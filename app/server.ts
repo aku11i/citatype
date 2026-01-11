@@ -1,9 +1,10 @@
-import type { Hono } from "hono";
 import { createApp } from "honox/server";
 import type { Bindings } from "../src/bindings.js";
 
-type App = Hono<{ Bindings: Bindings }>;
+type AppEnv = {
+  Bindings: Bindings;
+};
 
-const app = createApp<App>();
+const app = createApp<AppEnv>();
 
 export default app;
