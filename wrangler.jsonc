@@ -5,9 +5,21 @@
   "compatibility_date": "2025-01-01",
   "compatibility_flags": ["nodejs_compat"],
   "vars": {
-    "ENVIRONMENT": "local",
+    "ENVIRONMENT": "production",
   },
   "assets": {
     "directory": "./dist",
+  },
+  "env": {
+    "preview": {
+      "vars": {
+        "ENVIRONMENT": "preview",
+      },
+    },
+    "local": {
+      "vars": {
+        "ENVIRONMENT": "local",
+      },
+    },
   },
 }
