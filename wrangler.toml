@@ -1,11 +1,11 @@
 name = "citatype"
-main = "src/worker.ts"
+main = "dist/index.js"
 compatibility_date = "2025-01-01"
 
 vars = { ENVIRONMENT = "production" }
 
 [assets]
-directory = "public"
+directory = "dist"
 
 [env.preview]
 vars = { ENVIRONMENT = "preview" }
