@@ -1,0 +1,25 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "citatype",
+  "main": "./dist/index.js",
+  "compatibility_date": "2025-01-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "vars": {
+    "ENVIRONMENT": "production",
+  },
+  "assets": {
+    "directory": "./dist",
+  },
+  "env": {
+    "preview": {
+      "vars": {
+        "ENVIRONMENT": "preview",
+      },
+    },
+    "local": {
+      "vars": {
+        "ENVIRONMENT": "local",
+      },
+    },
+  },
+}

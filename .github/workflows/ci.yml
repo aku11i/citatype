@@ -18,8 +18,8 @@ jobs:
           cache: "pnpm"
       - name: Install dependencies
         run: pnpm install
-      - name: Build client components
-        run: pnpm build:client-components
+      - name: Build app
+        run: pnpm build
 
   lint:
     runs-on: ubuntu-latest

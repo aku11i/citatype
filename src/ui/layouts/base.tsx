@@ -20,6 +20,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene,
   const headerClass = isTyping
     ? "mb-4 flex items-center justify-between"
     : "mb-8 flex items-center justify-between";
+  const clientScript = import.meta.env.PROD ? "/static/client.js" : "/app/client.ts";
 
   return (
     <html lang={locale}>
@@ -53,6 +54,7 @@ export const BaseLayout: FC<BaseLayoutProps> = ({ title, locale, meta, t, scene,
           </div>
           {children}
         </main>
+        <script type="module" src={clientScript}></script>
       </body>
     </html>
   );
