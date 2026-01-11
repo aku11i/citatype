@@ -4,3 +4,4 @@ node_modules/
 public/tailwind.css
 public/client-components/
 .wrangler/
+dist/
