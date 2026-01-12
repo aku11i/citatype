@@ -1,9 +1,10 @@
 import { Hono } from "hono";
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import type { Translate } from "../i18n/createI18n.js";
-import { getMessages } from "../i18n/getMessages.js";
-import type { Messages } from "../i18n/messages/en.js";
-import { handleGetHome } from "./home.js";
+import type { Translate } from "../../i18n/createI18n.js";
+import { getMessages } from "../../i18n/getMessages.js";
+import type { Messages } from "../../i18n/messages/en.js";
+import type { LocaleVariables } from "../../middleware/locale.js";
+import route from "../../routes/[lang]/index.js";
 
 const { HomePageMock } = vi.hoisted(() => {
   return {
@@ -11,7 +12,7 @@ const { HomePageMock } = vi.hoisted(() => {
   };
 });
 
-vi.mock("../ui/pages/home.js", () => {
+vi.mock("../../ui/pages/home.js", () => {
   return {
     HomePage: HomePageMock,
   };
@@ -23,7 +24,7 @@ describe("GET /:lang", () => {
   });
 
   it("returns 200 and calls HomePage with expected props", async () => {
-    const app = new Hono<{ Variables: { locale: string; t: Translate; messages: Messages } }>();
+    const app = new Hono<{ Variables: LocaleVariables }>();
     const t: Translate = (key) => key;
     const messages = getMessages("en");
 
@@ -33,7 +34,7 @@ describe("GET /:lang", () => {
       c.set("messages", messages);
       await next();
     });
-    app.get("/:lang", handleGetHome);
+    app.get("/:lang", ...route);
 
     const res = await app.request("/en");
 

@@ -1,7 +1,7 @@
 import { languageDetector } from "hono/language";
 import { createRoute } from "honox/factory";
-import { handleGetRoot } from "../../src/handlers/root.js";
-import { fallbackLocale, locales } from "../../src/i18n/locales.js";
+import { fallbackLocale, locales, normalizeLocale } from "../i18n/locales.js";
+import { localizedPath } from "../i18n/paths.js";
 
 export default createRoute(
   languageDetector({
@@ -17,5 +17,12 @@ export default createRoute(
     },
     convertDetectedLanguage: (lang) => lang.split("-")[0] ?? lang,
   }),
-  handleGetRoot,
+  (c) => {
+    const detected = c.get("language");
+    const locale = typeof detected === "string" ? normalizeLocale(detected) : null;
+
+    c.header("Vary", "Accept-Language, Cookie");
+
+    return c.redirect(localizedPath(locale ?? fallbackLocale, "/"), 302);
+  },
 );

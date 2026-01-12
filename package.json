@@ -5,9 +5,9 @@
   "scripts": {
     "dev": "concurrently -k \"pnpm dev:honox\" \"pnpm dev:css\"",
     "dev:honox": "vite --port 3000",
-    "dev:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css --watch",
+    "dev:css": "tailwindcss -i ./app/app.css -o ./public/tailwind.css --watch",
     "build": "pnpm build:css && vite build --mode client && vite build",
-    "build:css": "tailwindcss -i ./src/app.css -o ./public/tailwind.css",
+    "build:css": "tailwindcss -i ./app/app.css -o ./public/tailwind.css",
     "preview": "pnpm build && wrangler dev --env preview",
     "deploy": "pnpm build && wrangler deploy",
     "typecheck": "tsgo",
