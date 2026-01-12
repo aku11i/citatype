@@ -8,5 +8,5 @@ const registerIfPresent = async (selector: string, loader: () => Promise<unknown
   }
 };
 
-registerIfPresent("typing-session", () => import("../src/ui/client-components/typing-session.js"));
-registerIfPresent("elapsed-timer", () => import("../src/ui/client-components/elapsed-timer.js"));
+registerIfPresent("typing-session", () => import("./ui/client-components/typing-session.js"));
+registerIfPresent("elapsed-timer", () => import("./ui/client-components/elapsed-timer.js"));
