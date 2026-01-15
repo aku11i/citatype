@@ -43,7 +43,7 @@
     "@typescript/native-preview": "7.0.0-dev.20260109.1",
     "@vitest/browser": "^4.0.16",
     "@vitest/browser-playwright": "^4.0.16",
-    "axe-core": "^4.11.0",
+    "axe-core": "^4.11.1",
     "concurrently": "^9.2.1",
     "happy-dom": "^20.0.11",
     "oxfmt": "^0.21.0",
