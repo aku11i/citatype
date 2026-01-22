@@ -28,7 +28,7 @@
     "@hono/node-server": "^1.19.9",
     "@hono/standard-validator": "^0.2.2",
     "class-variance-authority": "^0.7.1",
-    "hono": "^4.11.3",
+    "hono": "^4.11.4",
     "honox": "^0.1.53",
     "typengine": "^0.0.5",
     "valibot": "^1.2.0"
