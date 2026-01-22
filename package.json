@@ -26,7 +26,7 @@
   },
   "dependencies": {
     "@hono/node-server": "^1.19.8",
-    "@hono/standard-validator": "^0.2.1",
+    "@hono/standard-validator": "^0.2.2",
     "class-variance-authority": "^0.7.1",
     "hono": "^4.11.3",
     "honox": "^0.1.53",
