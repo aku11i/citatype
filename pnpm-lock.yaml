@@ -34,8 +34,8 @@ importers:
         specifier: ^1.8.0
         version: 1.8.0(hono@4.11.3)
       '@hono/vite-dev-server':
-        specifier: ^0.24.0
-        version: 0.24.0(hono@4.11.3)(miniflare@4.20260103.0)(wrangler@4.57.0)
+        specifier: ^0.24.1
+        version: 0.24.1(hono@4.11.3)(miniflare@4.20260103.0)(wrangler@4.57.0)
       '@tailwindcss/cli':
         specifier: ^4.1.18
         version: 4.1.18
@@ -543,8 +543,8 @@ packages:
       wrangler:
         optional: true
 
-  '@hono/vite-dev-server@0.24.0':
-    resolution: {integrity: sha512-yV+DHE9suDPPvZW/o4VhY2KFl0vrIPvt0zDlj22V6wkTsEKy7TGpAd4tw0swOhN3Zfb7mXch7QAGEtO9c6qrMQ==}
+  '@hono/vite-dev-server@0.24.1':
+    resolution: {integrity: sha512-1ga1v9awRuYgs/C2/nhnOiAUeB3zPI/rEbfXkow7kOSHa8AYxxveDSpVsMZneE3ojwgkXQl2G68S+xj2WqxWPw==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -2393,7 +2393,7 @@ snapshots:
       miniflare: 4.20260103.0
       wrangler: 4.57.0
 
-  '@hono/vite-dev-server@0.24.0(hono@4.11.3)(miniflare@4.20260103.0)(wrangler@4.57.0)':
+  '@hono/vite-dev-server@0.24.1(hono@4.11.3)(miniflare@4.20260103.0)(wrangler@4.57.0)':
     dependencies:
       '@hono/node-server': 1.19.8(hono@4.11.3)
       hono: 4.11.3
