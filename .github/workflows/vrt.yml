@@ -53,7 +53,7 @@ jobs:
       - name: Compare screenshots
         # このPRがマージされたら本家に戻す
         # https://github.com/reg-viz/reg-actions/pull/193
-        uses: aku11i/reg-actions@158f86a6c8ec8ea9851a6ba17ffbc3ee68498003
+        uses: aku11i/reg-actions@de0062684f3bc6019eeaa85b85d7228a4ecd8067
         with:
           github-token: "${{ secrets.GITHUB_TOKEN }}"
           image-directory-path: ".screenshots"
