@@ -31,8 +31,8 @@ importers:
         version: 1.2.0(typescript@5.9.3)
     devDependencies:
       '@hono/vite-build':
-        specifier: ^1.9.0
-        version: 1.9.0(hono@4.11.4)
+        specifier: ^1.9.2
+        version: 1.9.2(hono@4.11.4)
       '@hono/vite-dev-server':
         specifier: ^0.24.1
         version: 0.24.1(hono@4.11.4)(miniflare@4.20260111.0)(wrangler@4.59.1)
@@ -524,8 +524,8 @@ packages:
       '@standard-schema/spec': ^1.0.0
       hono: '>=3.9.0'
 
-  '@hono/vite-build@1.9.0':
-    resolution: {integrity: sha512-NTbrE2plJ0alXcPWgWu/Nf4ghuiHH2sS/bJXcqIYO+lXWSwQ4Cdruu/Te0PDLS8I5wxwRaXJpiGEEtH0/ok5wQ==}
+  '@hono/vite-build@1.9.2':
+    resolution: {integrity: sha512-7/qan3lgeA8mMv7jtx5KX0wrAdMteNqI87JcZjS1CUN9hhIsaqOvySXcT3lZLyhYidywl+s88ZX84I0knefItA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
       hono: '*'
@@ -2399,7 +2399,7 @@ snapshots:
       '@standard-schema/spec': 1.0.0
       hono: 4.11.4
 
-  '@hono/vite-build@1.9.0(hono@4.11.4)':
+  '@hono/vite-build@1.9.2(hono@4.11.4)':
     dependencies:
       hono: 4.11.4
 
