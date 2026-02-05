@@ -46,7 +46,7 @@
     "axe-core": "^4.11.1",
     "concurrently": "^9.2.1",
     "happy-dom": "^20.4.0",
-    "oxfmt": "^0.26.0",
+    "oxfmt": "^0.27.0",
     "oxlint": "^1.42.0",
     "playwright": "^1.58.0",
     "tailwindcss": "^4.1.18",
