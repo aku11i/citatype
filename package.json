@@ -40,7 +40,7 @@
     "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@types/node": "^25.0.10",
-    "@typescript/native-preview": "7.0.0-dev.20260123.3",
+    "@typescript/native-preview": "7.0.0-dev.20260130.1",
     "@vitest/browser": "^4.0.16",
     "@vitest/browser-playwright": "^4.0.16",
     "axe-core": "^4.11.1",
