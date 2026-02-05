@@ -10,19 +10,19 @@ importers:
     dependencies:
       '@hono/node-server':
         specifier: ^1.19.9
-        version: 1.19.9(hono@4.11.5)
+        version: 1.19.9(hono@4.11.7)
       '@hono/standard-validator':
         specifier: ^0.2.2
-        version: 0.2.2(@standard-schema/spec@1.0.0)(hono@4.11.5)
+        version: 0.2.2(@standard-schema/spec@1.0.0)(hono@4.11.7)
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
       hono:
-        specifier: ^4.11.5
-        version: 4.11.5
+        specifier: ^4.11.7
+        version: 4.11.7
       honox:
         specifier: ^0.1.53
-        version: 0.1.53(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0)
+        version: 0.1.53(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0)
       typengine:
         specifier: ^0.0.5
         version: 0.0.5
@@ -32,10 +32,10 @@ importers:
     devDependencies:
       '@hono/vite-build':
         specifier: ^1.9.2
-        version: 1.9.2(hono@4.11.5)
+        version: 1.9.2(hono@4.11.7)
       '@hono/vite-dev-server':
         specifier: ^0.24.1
-        version: 0.24.1(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0)
+        version: 0.24.1(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0)
       '@tailwindcss/cli':
         specifier: ^4.1.18
         version: 4.1.18
@@ -1518,8 +1518,8 @@ packages:
     resolution: {integrity: sha512-EykJT/Q1KjTWctppgIAgfSO0tKVuZUjhgMr17kqTumMl6Afv3EISleU7qZUzoXDFTAHTDC4NOoG/ZxU3EvlMPQ==}
     engines: {node: '>=8'}
 
-  hono@4.11.5:
-    resolution: {integrity: sha512-WemPi9/WfyMwZs+ZUXdiwcCh9Y+m7L+8vki9MzDw3jJ+W9Lc+12HGsd368Qc1vZi1xwW8BWMMsnK5efYKPdt4g==}
+  hono@4.11.7:
+    resolution: {integrity: sha512-l7qMiNee7t82bH3SeyUCt9UF15EVmaBvsppY2zQtrbIhl/yzBTny+YUxsVjSjQ6gaqaeVtZmGocom8TzBlA4Yw==}
     engines: {node: '>=16.9.0'}
 
   honox@0.1.53:
@@ -2358,32 +2358,32 @@ snapshots:
   '@esbuild/win32-x64@0.27.2':
     optional: true
 
-  '@hono/node-server@1.19.9(hono@4.11.5)':
+  '@hono/node-server@1.19.9(hono@4.11.7)':
     dependencies:
-      hono: 4.11.5
+      hono: 4.11.7
 
-  '@hono/standard-validator@0.2.2(@standard-schema/spec@1.0.0)(hono@4.11.5)':
+  '@hono/standard-validator@0.2.2(@standard-schema/spec@1.0.0)(hono@4.11.7)':
     dependencies:
       '@standard-schema/spec': 1.0.0
-      hono: 4.11.5
+      hono: 4.11.7
 
-  '@hono/vite-build@1.9.2(hono@4.11.5)':
+  '@hono/vite-build@1.9.2(hono@4.11.7)':
     dependencies:
-      hono: 4.11.5
+      hono: 4.11.7
 
-  '@hono/vite-dev-server@0.23.0(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0)':
+  '@hono/vite-dev-server@0.23.0(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0)':
     dependencies:
-      '@hono/node-server': 1.19.9(hono@4.11.5)
-      hono: 4.11.5
+      '@hono/node-server': 1.19.9(hono@4.11.7)
+      hono: 4.11.7
       minimatch: 9.0.5
     optionalDependencies:
       miniflare: 4.20260124.0
       wrangler: 4.61.0
 
-  '@hono/vite-dev-server@0.24.1(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0)':
+  '@hono/vite-dev-server@0.24.1(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0)':
     dependencies:
-      '@hono/node-server': 1.19.9(hono@4.11.5)
-      hono: 4.11.5
+      '@hono/node-server': 1.19.9(hono@4.11.7)
+      hono: 4.11.7
       minimatch: 9.0.5
     optionalDependencies:
       miniflare: 4.20260124.0
@@ -3268,16 +3268,16 @@ snapshots:
 
   has-flag@4.0.0: {}
 
-  hono@4.11.5: {}
+  hono@4.11.7: {}
 
-  honox@0.1.53(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0):
+  honox@0.1.53(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0):
     dependencies:
       '@babel/generator': 7.25.6
       '@babel/parser': 7.25.6
       '@babel/traverse': 7.25.6
       '@babel/types': 7.25.6
-      '@hono/vite-dev-server': 0.23.0(hono@4.11.5)(miniflare@4.20260124.0)(wrangler@4.61.0)
-      hono: 4.11.5
+      '@hono/vite-dev-server': 0.23.0(hono@4.11.7)(miniflare@4.20260124.0)(wrangler@4.61.0)
+      hono: 4.11.7
       jsonc-parser: 3.3.1
       precinct: 12.2.0
     optionalDependencies:
